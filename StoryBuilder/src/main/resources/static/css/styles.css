@@ -1,0 +1,109 @@
+body {
+	background-color: black;
+}
+
+#wrapper {	
+    margin: auto;
+    background-color: yellow;
+}
+
+button,
+.fa-search,
+.fa-edit,
+.fa-flag,
+.fa-pencil-alt,
+.fa-book,
+.fa-book-open {
+	cursor: pointer;
+}
+
+nav,
+h1,
+#popup-editor,
+.popup-editor {
+	padding: .45em;
+}
+
+.user-name,
+.entry-content,
+.volley-content,
+.fa-edit,
+.fa-flag,
+.fa-pencil-alt,
+.fa-book,
+.fa-book-open {
+	margin: .45em;
+}
+
+header {
+	width: 100%;
+	position: fixed;
+ 	top: 0;
+	left: 0;
+	left: 50%;
+	margin-left: -180px;
+	background-color: blue;	
+	z-index: 1;
+}
+
+header,
+#wrapper {
+	width: 360px;
+}
+
+h1 {
+	color: white;
+}
+
+nav {	
+	background-color: green;
+}
+
+main {
+	margin-top: 4.15em;
+	/* padding-top: .01em; */
+}
+
+header,
+#popup-editor,
+.popup-editor {
+	text-align: center;
+}
+
+#popup-editor,
+.popup-editor {
+	background-color: grey;	
+}
+
+#popup-editor textarea,
+.popup-editor textarea {
+	box-sizing: border-box;
+	margin-bottom: .25em;
+	width: 100%;
+	resize: vertical;
+}
+
+#popup-editor,
+.popup-editor,
+#template-display-entry {	
+	display: none;
+}
+
+.template-display-volley,
+.volley {
+	background-color: orange;
+}
+
+.entry {
+	position: relative;
+	margin-top: .3em;
+	margin-bottom: .3em;
+	padding: 1em;
+	background-color: yellow;
+	box-shadow: 3px 3px 6px #000000;	
+}
+
+.float-right {
+	float: right;
+}
+

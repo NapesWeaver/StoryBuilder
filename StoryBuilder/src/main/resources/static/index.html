@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="description" content="Mad-libs type storybook writing app">
+	<title>Mad Story Libs</title>
+	<!-- <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon"> -->
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css" integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/styles.css">
+    <script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>    
+</head>
+<body>
+<div id="wrapper">
+	<header>
+		<h1>Mad Story Libs</h1>
+		<nav>
+			<button id="btn-new" title="New entry" type="button">NEW</button>
+			<input type="search" id="search" placeholder="search"/>
+			<i id="btn-search" class="fas fa-search" title="Search stories"></i>
+		</nav>
+		<div id="popup-editor">
+			<textarea></textarea>
+			<button id="btn-save" type="button" title="Save entry">Save</button>
+			<button id="btn-cancel" type="button" title="Close editor">Cancel</button>
+			<button id="btn-delete" type="button" title="Delete entry">Delete</button>
+		</div>
+	</header>			
+	<main>		
+		<div id="template-display-entry">
+			<div>
+				<span class="entry-user-name"></span>
+				<div class="float-right">
+					<i class="fas fa-edit edit-entry" title="Edit"></i>
+					<i class="far fa-flag flag-entry" title="Flag as inappropriate"></i>
+				</div>
+			</div>
+			<div class="entry-content"></div>
+			<div class="entry-appendable">
+				<i class="fas fa-pencil-alt" title="Append to story"></i>
+				<i class="fas fa-book toggle-book" title="Open story"></i>	
+				<span class="volley-count"></span>
+				<span class="entry-date float-right" title=""></span>
+			</div>
+			<div class="template-display-volley">
+				<span class="volley-user-name"></span>
+				<div class="volley-editable float-right"></div>
+				<div class="volley-content"></div>
+				<div class="volley-appendable">
+					<span class="volley-date float-right"></span>
+				</div>
+			</div>
+			<!-- <i class="fas fa-thumbs-up"></i>
+  			<i class="far fa-thumbs-up"></i> -->
+		</div>					
+	</main>
+	
+	<footer>
+	</footer>
+</div>
+<script src="js/main.js"></script>
+</body>
+</html>
