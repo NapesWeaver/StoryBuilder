@@ -144,11 +144,13 @@ $(function(){
 	}
 	
 	function flagEntry() {
-		//var isFlagged = 
+
 		editId = $(this).parent().find(".edit-entry").data("id");
+		console.log("editId", editId);
+		
 		$.ajax({
 			url: "/flag-entry",
-			method: "get",
+			method: "post",
 			type: "json",
 			data: { 
 				id: editId,
@@ -160,12 +162,13 @@ $(function(){
 	}
 	
 	function flagVolley() {
-		//var isFlagged = 
+		
 		editId = $(this).parent().find(".edit-volley").data("id");
 		console.log("flagVolley:", editId);		
+		
 		$.ajax({
 			url: "/flag-volley",
-			method: "get",
+			method: "post",
 			type: "json",
 			data: {
 				id: editId,
@@ -173,6 +176,62 @@ $(function(){
 			},
 			error: ajaxError,
 			success: reloadEntries
+		});
+	}
+	
+	function getUserEntryFlags() {
+		$.ajax({
+			url: "/get-entry-flags",
+			method: "get",
+			type: "json",
+			data: {},
+			error: ajaxError,
+			success: function(data) {
+				console.log("get:", JSON.parse(data));
+			}
+		});
+	}
+	
+	function saveUserEntryFlags() {		
+		$.ajax({
+			url: "/save-entry-flags",
+			method: "post",
+			type: "json",
+			data: {
+				entryFlags: myString
+			},
+			error: ajaxError,
+			success: function () {
+				console.log("save:",JSON.stringify(entryFlags));
+			}
+		});
+	}
+	
+	function getUserVolleyFlags() {		
+		$.ajax({
+			url: "/get-Volley-flags",
+			method: "get",
+			type: "json",
+			data: {},
+			error: ajaxError,
+			success: function(data) {
+				console.log("get:", JSON.parse(data));
+			}
+		});
+	}
+	
+	function saveUserVolleyFlags() {				
+		$.ajax({
+			url: "/save-volley-flags",
+			method: "post",
+			type: "json",
+			data: {
+				entryFlags: myString
+			},
+			error: ajaxError,
+			success: function () {
+				console.log("save:",JSON.stringify(volleyFlags));
+			}
 		});
 	}
 	

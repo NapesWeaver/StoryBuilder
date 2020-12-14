@@ -24,6 +24,8 @@ public class User {
 	private Boolean enabled;
 	@Column(name="entry_flags")
 	private String entryFlags;
+	@Column(name="volley_flags")
+	private String volleyFlags;
 	
 	public int getId() {
 		return id;
@@ -60,5 +62,11 @@ public class User {
 	}
 	public void setEntryFlags(String entryFlags) {
 		this.entryFlags = entryFlags;
-	}		
+	}
+	public String getVolleyFlags() {
+		return volleyFlags;
+	}
+	public void setVolleyFlags(String volleyFlags) {
+		this.volleyFlags = volleyFlags;
+	}			
 }
