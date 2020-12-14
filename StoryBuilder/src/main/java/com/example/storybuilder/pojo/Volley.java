@@ -31,8 +31,8 @@ public class Volley {
 	private String content;
 	@Column(name="volley_date")
 	private Date date;
-	@Column(name="volley_flagged")
-	private int flags;
+	@Column(name="volley_flag_count")
+	private int flagCount;
 	@Transient
 	private boolean editable;
 	
@@ -71,12 +71,12 @@ public class Volley {
 	}
 	public void setDate(Date date) {
 		this.date = date;
-	}	
-	public int getFlags() {
-		return flags;
+	}		
+	public int getFlagCount() {
+		return flagCount;
 	}
-	public void setFlags(int flags) {
-		this.flags += flags;
+	public void setFlagCount(int flagCount) {
+		this.flagCount = flagCount;
 	}
 	public boolean isEditable() {
 		return editable;

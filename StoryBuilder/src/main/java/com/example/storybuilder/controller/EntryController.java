@@ -99,7 +99,7 @@ public class EntryController {
 			if(user.getName().equals(entry.getUser().getName())) {
 				entry.setContent(content);
 				entry.setDate(new Date());
-				entry.setFlags(0);
+				entry.setFlagCount(0);
 				entry = EntryRepo.save(entry);
 				return entry;
 			}
@@ -108,7 +108,7 @@ public class EntryController {
 			entry.setUser(user);
 			entry.setContent(content);
 			entry.setDate(new Date());
-			entry.setFlags(0);
+			entry.setFlagCount(0);
 			entry = EntryRepo.save(entry);			
 			return entry;
 		}
@@ -131,7 +131,7 @@ public class EntryController {
 				volley.setIsEntry(false);
 				volley.setContent(content);
 				volley.setDate(new Date());
-				volley.setFlags(0);
+				volley.setFlagCount(0);
 				volley = VolleyRepo.save(volley);
 				return volley;
 			}
@@ -142,7 +142,7 @@ public class EntryController {
 			volley.setIsEntry(false);
 			volley.setContent(content);
 			volley.setDate(new Date());
-			volley.setFlags(0);
+			volley.setFlagCount(0);
 			volley.setEntry(entry);
 			volley = VolleyRepo.save(volley);			
 			return volley;
@@ -180,9 +180,9 @@ public class EntryController {
 	public Entry flagEntry(@RequestParam int id, @RequestParam boolean flagged) {		
 		Entry entry = EntryRepo.findById(id).get();		
 		 if (flagged) {
-			 entry.setFlags(1);
+			 entry.setFlagCount(1);
 		 } else {
-			 entry.setFlags(-1);
+			 entry.setFlagCount(-1);
 		 }
 		entry = EntryRepo.save(entry);
 		return entry;
@@ -192,9 +192,9 @@ public class EntryController {
 	public Volley flagVolley(@RequestParam int id, @RequestParam boolean flagged) {
 		Volley volley = VolleyRepo.findById(id).get();
 		if (flagged) {
-			volley.setFlags(1);
+			volley.setFlagCount(1);
 		} else {
-			volley.setFlags(-1);
+			volley.setFlagCount(-1);
 		}
 		volley = VolleyRepo.save(volley);
 		return volley;

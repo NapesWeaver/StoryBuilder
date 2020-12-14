@@ -26,8 +26,8 @@ public class Entry {
 	private String content;
 	@Column(name="entry_date")
 	private Date date;
-	@Column(name="entry_flagged")
-	private int flags;
+	@Column(name="entry_flag_count")
+	private int flagCount;
 	@Transient
 	private boolean editable;
 	@Transient
@@ -56,12 +56,12 @@ public class Entry {
 	}
 	public void setDate(Date date) {
 		this.date = date;
-	}	
-	public int getFlags() {
-		return flags;
 	}
-	public void setFlags(int flags) {
-		this.flags += flags;
+	public int getFlagCount() {
+		return flagCount;
+	}
+	public void setFlagCount(int flagCount) {
+		this.flagCount = flagCount;
 	}
 	public boolean isEditable() {
 		return editable;

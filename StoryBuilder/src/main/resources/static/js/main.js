@@ -253,7 +253,7 @@ $(function(){
 			$entry.find(".entry-user-name").append(data[i].user.name);
 			if (data[i].volleyCount > 0 || !data[i].editable) $entry.find(".edit-entry").hide();
 			$entry.find(".edit-entry").data("id", data[i].id);// Wow !!!
-			if (data[i].flags > 0) {
+			if (data[i].flagCount > 0) {
 				$entry.find(".flag-entry").removeClass("far");
 				$entry.find(".flag-entry").addClass("fas");
 			}		
@@ -280,7 +280,7 @@ $(function(){
 			if (!data[i].editable) $volley.find(".edit-volley").hide();
 			$volley.find(".volley-content").append(data[i].content);
 			$volley.find(".edit-volley").data("id", data[i].id);// Wow !!!
-			if (data[i].flags > 0) {
+			if (data[i].flagCount > 0) {
 				$volley.find(".flag-volley").removeClass("far");
 				$volley.find(".flag-volley").addClass("fas");
 			}
