@@ -22,6 +22,8 @@ public class User {
 	private String passwordHashed;	
 	@Column(name="enabled")
 	private Boolean enabled;
+	@Column(name="entry_flags")
+	private String entryFlags;
 	
 	public int getId() {
 		return id;
@@ -52,5 +54,11 @@ public class User {
 	}
 	public void setEnabled(Boolean enabled) {
 		this.enabled = enabled;
-	}	
+	}
+	public String getEntryFlags() {
+		return entryFlags;
+	}
+	public void setEntryFlags(String entryFlags) {
+		this.entryFlags = entryFlags;
+	}		
 }

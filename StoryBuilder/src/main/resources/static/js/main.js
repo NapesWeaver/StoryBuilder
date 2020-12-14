@@ -3,11 +3,16 @@ $(function(){
 	var editId = 0;
 	var volleyEntryId = 0;
 	
+	var entryFlags = {};
+	var volleyFlags = {};
+	var entryThumbs = {};
+	var volleyThumbs = {};
+	
 	$("#btn-new").click(showNewEntryEditor);
+	$("#btn-search").click(search);
 	$("#btn-save").click(saveEntry);
 	$("#btn-cancel").click(hideEditor);
 	$("#btn-delete").click(deleteEntry);
-	$("#btn-search").click(search);
 	$("main").on("click", ".edit-entry", showEntryEditor);
 	$("main").on("click", ".flag-entry", flagEntry);
 	$("main").on("click", ".flag-volley", flagVolley);
@@ -23,7 +28,25 @@ $(function(){
 	
 	function search() {
 		console.log("search");
-	}	
+		var query = $("#search").val();
+		$("#search").val("");
+		
+		$.ajax({
+			url: "/search-entries",
+			method: "get",
+			dataType: "json",
+			data: {
+				query,
+				limit: 100,
+				offset: 0
+			},
+			error: ajaxError,
+			success: function(data) {
+				$(".entry").remove();
+				buildEntries(data);
+			}
+		});
+	}
 	
 	function getEntries() {
 		$.ajax({
@@ -229,7 +252,11 @@ $(function(){
 			$entry.addClass("entry");
 			$entry.find(".entry-user-name").append(data[i].user.name);
 			if (data[i].volleyCount > 0 || !data[i].editable) $entry.find(".edit-entry").hide();
-			$entry.find(".edit-entry").data("id", data[i].id);// Wow !!!		
+			$entry.find(".edit-entry").data("id", data[i].id);// Wow !!!
+			if (data[i].flags > 0) {
+				$entry.find(".flag-entry").removeClass("far");
+				$entry.find(".flag-entry").addClass("fas");
+			}		
 			$entry.find(".entry-content").append(data[i].content);
 			(data[i].volleyCount == 0) ? $entry.find(".fa-book").hide() : $entry.find(".fa-pencil-alt").hide();
 			if (data[i].volleyCount > 1) $entry.find(".volley-count").append(data[i].volleyCount);
@@ -253,6 +280,10 @@ $(function(){
 			if (!data[i].editable) $volley.find(".edit-volley").hide();
 			$volley.find(".volley-content").append(data[i].content);
 			$volley.find(".edit-volley").data("id", data[i].id);// Wow !!!
+			if (data[i].flags > 0) {
+				$volley.find(".flag-volley").removeClass("far");
+				$volley.find(".flag-volley").addClass("fas");
+			}
 			$volley.find(".volley-appendable").append("<i class='fas fa-pencil-alt' title='Append to story'>");
 			$volley.find(".volley-date").append(data[i].date.slice(0,10));
 			$volley.find(".volley-date").prop("title", data[i].date.slice(11));
