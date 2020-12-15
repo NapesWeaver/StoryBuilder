@@ -24,6 +24,8 @@ $(function(){
 	$("main").on("click", "#btn-delete", deleteVolley);
 	$("main").on("click", "#btn-cancel", hideEditor);
 		
+	getUserEntryFlags();
+	getUserVolleyFlags();
 	getEntries();
 	
 	function search() {
@@ -145,37 +147,55 @@ $(function(){
 	
 	function flagEntry() {
 
+		var flagged = false;
 		editId = $(this).parent().find(".edit-entry").data("id");
-		console.log("editId", editId);
 		
+		if (entryFlags.hasOwnProperty(editId)) {
+			delete entryFlags[editId];
+		} else {
+			entryFlags[editId] = 1;
+			flagged = true;
+		}
 		$.ajax({
 			url: "/flag-entry",
 			method: "post",
 			type: "json",
 			data: { 
 				id: editId,
-				flagged: true
+				flagged: flagged
 			},
 			error: ajaxError,
-			success: reloadEntries
+			success: function() {
+				saveUserEntryFlags();
+				reloadEntries();
+			}		
 		});
 	}
 	
 	function flagVolley() {
 		
+		var flagged = false;
 		editId = $(this).parent().find(".edit-volley").data("id");
-		console.log("flagVolley:", editId);		
 		
+		if (volleyFlags.hasOwnProperty(editId)) {
+			delete volleyFlags[editId];
+		} else {
+			volleyFlags[editId] = 1;
+			flagged = true;
+		}		
 		$.ajax({
 			url: "/flag-volley",
 			method: "post",
 			type: "json",
 			data: {
 				id: editId,
-				flagged: true
+				flagged: flagged
 			},
 			error: ajaxError,
-			success: reloadEntries
+			success: function() {
+				saveUserVolleyFlags();
+				reloadEntries();
+			}
 		});
 	}
 	
@@ -187,7 +207,7 @@ $(function(){
 			data: {},
 			error: ajaxError,
 			success: function(data) {
-				console.log("get:", JSON.parse(data));
+				entryFlags = JSON.parse(data);
 			}
 		});
 	}
@@ -198,7 +218,7 @@ $(function(){
 			method: "post",
 			type: "json",
 			data: {
-				entryFlags: myString
+				entryFlags: JSON.stringify(entryFlags)
 			},
 			error: ajaxError,
 			success: function () {
@@ -209,13 +229,13 @@ $(function(){
 	
 	function getUserVolleyFlags() {		
 		$.ajax({
-			url: "/get-Volley-flags",
+			url: "/get-volley-flags",
 			method: "get",
 			type: "json",
 			data: {},
 			error: ajaxError,
 			success: function(data) {
-				console.log("get:", JSON.parse(data));
+				volleyFlags = JSON.parse(data);
 			}
 		});
 	}
@@ -226,7 +246,7 @@ $(function(){
 			method: "post",
 			type: "json",
 			data: {
-				entryFlags: myString
+				volleyFlags: JSON.stringify(volleyFlags)
 			},
 			error: ajaxError,
 			success: function () {
@@ -312,10 +332,10 @@ $(function(){
 			$entry.find(".entry-user-name").append(data[i].user.name);
 			if (data[i].volleyCount > 0 || !data[i].editable) $entry.find(".edit-entry").hide();
 			$entry.find(".edit-entry").data("id", data[i].id);// Wow !!!
-			if (data[i].flagCount > 0) {
+			if (entryFlags.hasOwnProperty(data[i].id)) {
 				$entry.find(".flag-entry").removeClass("far");
 				$entry.find(".flag-entry").addClass("fas");
-			}		
+			}
 			$entry.find(".entry-content").append(data[i].content);
 			(data[i].volleyCount == 0) ? $entry.find(".fa-book").hide() : $entry.find(".fa-pencil-alt").hide();
 			if (data[i].volleyCount > 1) $entry.find(".volley-count").append(data[i].volleyCount);
@@ -339,7 +359,7 @@ $(function(){
 			if (!data[i].editable) $volley.find(".edit-volley").hide();
 			$volley.find(".volley-content").append(data[i].content);
 			$volley.find(".edit-volley").data("id", data[i].id);// Wow !!!
-			if (data[i].flagCount > 0) {
+			if (volleyFlags.hasOwnProperty(data[i].id)) {
 				$volley.find(".flag-volley").removeClass("far");
 				$volley.find(".flag-volley").addClass("fas");
 			}

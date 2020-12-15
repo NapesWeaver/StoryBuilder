@@ -61,7 +61,7 @@ public class Entry {
 		return flagCount;
 	}
 	public void setFlagCount(int flagCount) {
-		this.flagCount = flagCount;
+		this.flagCount += flagCount;
 	}
 	public boolean isEditable() {
 		return editable;

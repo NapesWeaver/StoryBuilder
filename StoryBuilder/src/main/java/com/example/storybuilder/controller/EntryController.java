@@ -88,48 +88,6 @@ public class EntryController {
 		return vollies;
 	}
 	
-	@RequestMapping("/get-entry-flags") 
-	public String getEntryFlags() {
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		String name = auth.getName();		
-		User user = UserRepo.findFirstByName(name);
-		System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXGet " + user.getEntryFlags());		
-		String entryFlags = user.getEntryFlags();		
-		return entryFlags;
-	}
-	
-	@RequestMapping("/save-entry-flags")
-	public User saveEntryFlags(@RequestParam String entryFlags) {
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		String name = auth.getName();
-		User user = UserRepo.findFirstByName(name);		
-		user.setEntryFlags(entryFlags);
-		System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXSave " + user.getEntryFlags());
-		user = UserRepo.save(user);
-		return user;
-	}
-	
-	@RequestMapping("/get-volley-flags")
-	public String getVolleyFlags() {
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		String name = auth.getName();		
-		User user = UserRepo.findFirstByName(name);
-		System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXGet " + user.getVolleyFlags());		
-		String volleyFlags = user.getVolleyFlags();	
-		return volleyFlags;
-	}
-		
-	@RequestMapping("/save-volley-flags")
-	public User saveVolleyFlags(@RequestParam String volleyFlags) {
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		String name = auth.getName();
-		User user = UserRepo.findFirstByName(name);		
-		user.setEntryFlags(volleyFlags);
-		System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXSave " + user.getVolleyFlags());
-		user = UserRepo.save(user);
-		return user;
-	}
-	
 	@RequestMapping("/save-entry")
 	public Entry saveEntry(@RequestParam String content, @RequestParam int id) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -240,5 +198,43 @@ public class EntryController {
 		}
 		volley = VolleyRepo.save(volley);
 		return volley;
+	}
+	
+	@RequestMapping("/get-entry-flags") 
+	public String getEntryFlags() {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String name = auth.getName();		
+		User user = UserRepo.findFirstByName(name);
+		String entryFlags = user.getEntryFlags();		
+		return entryFlags;
+	}
+	
+	@RequestMapping("/save-entry-flags")
+	public User saveEntryFlags(@RequestParam String entryFlags) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String name = auth.getName();
+		User user = UserRepo.findFirstByName(name);		
+		user.setEntryFlags(entryFlags);
+		user = UserRepo.save(user);
+		return user;
+	}
+	
+	@RequestMapping("/get-volley-flags")
+	public String getVolleyFlags() {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String name = auth.getName();		
+		User user = UserRepo.findFirstByName(name);	
+		String volleyFlags = user.getVolleyFlags();	
+		return volleyFlags;
+	}
+		
+	@RequestMapping("/save-volley-flags")
+	public User saveVolleyFlags(@RequestParam String volleyFlags) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String name = auth.getName();
+		User user = UserRepo.findFirstByName(name);		
+		user.setVolleyFlags(volleyFlags);
+		user = UserRepo.save(user);
+		return user;
 	}
 }
