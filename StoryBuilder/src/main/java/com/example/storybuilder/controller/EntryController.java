@@ -128,10 +128,10 @@ public class EntryController {
 		if (id > 0) {
 			Volley volley = VolleyRepo.findById(id).get();
 			if(user.getName().equals(volley.getUser().getName())) {
-				volley.setIsEntry(false);
 				volley.setContent(content);
 				volley.setDate(new Date());
 				volley.setFlagCount(0);
+				volley.setIsEntry(false);
 				volley = VolleyRepo.save(volley);
 				return volley;
 			}
@@ -139,12 +139,12 @@ public class EntryController {
 			Entry entry = EntryRepo.findById(entryId).get();
 			Volley volley = new Volley();
 			volley.setUser(user);
-			volley.setIsEntry(false);
+			volley.setEntry(entry);
 			volley.setContent(content);
 			volley.setDate(new Date());
 			volley.setFlagCount(0);
-			volley.setEntry(entry);
-			volley = VolleyRepo.save(volley);			
+			volley.setIsEntry(false);
+			volley = VolleyRepo.save(volley);	
 			return volley;
 		}		
 		return null;

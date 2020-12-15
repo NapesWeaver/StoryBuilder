@@ -8,7 +8,7 @@ $(function(){
 	var entryThumbs = {};
 	var volleyThumbs = {};
 	
-	$("#btn-new").click(showNewEntryEditor);
+	$("#btn-new").click(showNewEditor);
 	$("#btn-search").click(search);
 	$("#btn-save").click(saveEntry);
 	$("#btn-cancel").click(hideEditor);
@@ -17,8 +17,8 @@ $(function(){
 	$("main").on("click", ".flag-entry", flagEntry);
 	$("main").on("click", ".flag-volley", flagVolley);
 	$("main").on("click", ".toggle-book", getVollies);
-	$("main").on("click", ".entry-appendable .fa-pencil-alt", showFirstVolleyEditor);
-	$("main").on("click", ".volley-appendable .fa-pencil-alt", showNewVolleyEditor);
+	$("main").on("click", ".entry-appendable .fa-pencil-alt", showAppendEntryEditor);
+	$("main").on("click", ".volley-appendable .fa-pencil-alt", showAppendVolleyEditor);
 	$("main").on("click", ".edit-volley", showVolleyEditor);
 	$("main").on("click", "#btn-save", saveVolley);
 	$("main").on("click", "#btn-delete", deleteVolley);
@@ -69,10 +69,12 @@ $(function(){
 		if ($(this).attr("class").includes("open")) {
 			$(".toggle-book").removeClass("fa-book-open");
 			$(".toggle-book").addClass("fa-book");
+			//$(".toggle-book").attr("title", "Open story");
 			$(".volley").remove();
 		} else {
 			$icon.removeClass("fa-book");
 			$icon.addClass("fa-book-open");
+			//$(".toggle-book").attr("title", "Close story");
 			
 			$.ajax({
 				url: "/get-vollies",
@@ -88,39 +90,64 @@ $(function(){
 	}
 	
 	function saveEntry() {
-
-		var content = $("#popup-editor textarea").val();
+		console.log("saveEntry");
+		var content = $("#popup-editor textarea").val().trim();
 		
-		$.ajax({
-			url: "/save-entry",
-			method: "post",
-			type: "json",
-			data: {
-				content,
-				id: editId
-			},
-			error: ajaxError,
-			success: reloadEntries
-		});
+		if (content != "") {
+			$.ajax({
+				url: "/save-entry",
+				method: "post",
+				type: "json",
+				data: {
+					content,
+					id: editId
+				},
+				error: ajaxError,
+				success: reloadEntries
+			});			
+		}
 	}
 	
 	function saveVolley() {
+		console.log("saveVolley");
+		var content = $(".popup-editor textarea").val().trim();
 		
-		var content = $(".popup-editor textarea").val();
+		if (content != "") {
+			$.ajax({
 		
-		$.ajax({
+				url: "/save-volley",
+				method: "post",
+				type: "json",
+				data: {
+					content: content,
+					id: editId,
+					entryId: volleyEntryId
+				},
+				error: ajaxError,
+				success: reloadEntries
+			});			
+		}
+	}
 	
-			url: "/save-volley",
-			method: "post",
-			type: "json",
-			data: {
-				content: content,
-				id: editId,
-				entryId: volleyEntryId
-			},
-			error: ajaxError,
-			success: reloadEntries
-		});
+	function saveVolley2() {
+		console.log("saveVolley2");
+		var content = $(".popup-editor textarea").val().trim();
+		
+		if (content != "") {
+			$.ajax({
+		
+				url: "/save-volley",
+				method: "post",
+				type: "json",
+				data: {
+					content: content,
+					id: editId,
+					entryId: volleyEntryId
+				},
+				error: ajaxError,
+				success: reloadEntries
+			});			
+		}
 	}
 	
 	function deleteEntry() {
@@ -265,13 +292,15 @@ $(function(){
 		hideEditor();
 	}	
 
-	function showNewEntryEditor() {
+	function showNewEditor() {
+		console.log("showNewEditor");
 		hideEditor();		
 		$("#btn-delete").hide();
 		$("#popup-editor").show();
 	}
 	
 	function showEntryEditor() {
+		console.log("showEntryEditor");
 		hideEditor();
 		var text = $(this).parent().parent().parent().find(".entry-content").text();		
 		$("#popup-editor textarea").val(text);
@@ -280,7 +309,8 @@ $(function(){
 		editId = $(this).data("id");
 	}
 	
-	function showFirstVolleyEditor() {
+	function showAppendEntryEditor() {
+		console.log("showAppendEntryEditor");
 		hideEditor();
 		volleyEntryId = $(this).parent().parent().find(".edit-entry").data("id");
 		$("#btn-delete").hide();
@@ -291,7 +321,8 @@ $(function(){
 		$popup.show();
 	}
 		
-	function showNewVolleyEditor() {
+	function showAppendVolleyEditor() {
+		console.log("showAppendVolleyEditor");
 		hideEditor();
 		volleyEntryId = $(this).parent().parent().parent().find(".edit-entry").data("id");
 		$("#btn-delete").hide();
@@ -338,7 +369,7 @@ $(function(){
 			}
 			if (data[i].flagCount > 0) $entry.find(".entry-flag-count").append(data[i].flagCount);
 			$entry.find(".entry-content").append(data[i].content);
-			(data[i].volleyCount == 0) ? $entry.find(".fa-book").hide() : $entry.find(".fa-pencil-alt").hide();
+			if (data[i].volleyCount < 1) $entry.find(".fa-book").hide();
 			if (data[i].volleyCount > 1) $entry.find(".volley-count").append(data[i].volleyCount);
 			$entry.find(".entry-date").append(data[i].date.slice(0,10))
 			$entry.find(".entry-date").prop("title", data[i].date.slice(11));
@@ -365,7 +396,7 @@ $(function(){
 				$volley.find(".flag-volley").addClass("fas");
 			}
 			if (data[i].flagCount > 0) $volley.find(".volley-flag-count").append(data[i].flagCount);
-			$volley.find(".volley-appendable").append("<i class='fas fa-pencil-alt' title='Append to story'>");
+			$volley.find(".volley-appendable").append("<i class='fas fa-pencil-alt' title='Append to volley'>");
 			$volley.find(".volley-date").append(data[i].date.slice(0,10));
 			$volley.find(".volley-date").prop("title", data[i].date.slice(11));
 			$volleyTemplate.parent().append($volley);

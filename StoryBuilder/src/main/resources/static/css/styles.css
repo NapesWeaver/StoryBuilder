@@ -89,9 +89,10 @@ header,
 	display: none;
 }
 
-.template-display-volley,
+/* .template-display-volley, */
 .volley {
 	background-color: orange;
+	box-shadow: 3px 3px 6px #000000;	
 }
 
 .entry {

@@ -25,14 +25,16 @@ public class Volley {
 	@ManyToOne
 	@JoinColumn(name="volley_entry_id")
 	private Entry entry;
-	@Column(name="is_entry")
-	private Boolean isEntry;
 	@Column(name="volley_content")
 	private String content;
 	@Column(name="volley_date")
 	private Date date;
 	@Column(name="volley_flag_count")
 	private int flagCount;
+	@Column(name="is_entry")
+	private Boolean isEntry;
+	@Column(name="is_hidden")
+	private boolean isHidden;
 	@Transient
 	private boolean editable;
 	
@@ -54,12 +56,6 @@ public class Volley {
 	public void setEntry(Entry entry) {
 		this.entry = entry;
 	}
-	public Boolean getIsEntry() {
-		return isEntry;
-	}
-	public void setIsEntry(Boolean isEntry) {
-		this.isEntry = isEntry;
-	}
 	public String getContent() {
 		return content;
 	}
@@ -71,18 +67,30 @@ public class Volley {
 	}
 	public void setDate(Date date) {
 		this.date = date;
-	}		
+	}
 	public int getFlagCount() {
 		return flagCount;
 	}
 	public void setFlagCount(int flagCount) {
 		this.flagCount += flagCount;
+	}	
+	public Boolean getIsEntry() {
+		return isEntry;
+	}
+	public void setIsEntry(Boolean isEntry) {
+		this.isEntry = isEntry;
+	}
+	public boolean isHidden() {
+		return isHidden;
+	}
+	public void setHidden(boolean isHidden) {
+		this.isHidden = isHidden;
 	}
 	public boolean isEditable() {
 		return editable;
 	}
 	public void setEditable(boolean editable) {
 		this.editable = editable;
-	}	
+	}
 }
 
