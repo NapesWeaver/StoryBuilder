@@ -336,6 +336,7 @@ $(function(){
 				$entry.find(".flag-entry").removeClass("far");
 				$entry.find(".flag-entry").addClass("fas");
 			}
+			if (data[i].flagCount > 0) $entry.find(".entry-flag-count").append(data[i].flagCount);
 			$entry.find(".entry-content").append(data[i].content);
 			(data[i].volleyCount == 0) ? $entry.find(".fa-book").hide() : $entry.find(".fa-pencil-alt").hide();
 			if (data[i].volleyCount > 1) $entry.find(".volley-count").append(data[i].volleyCount);
@@ -355,7 +356,7 @@ $(function(){
 			$volley.removeClass("template-display-volley");
 			$volley.addClass("volley");
 			$volley.find(".volley-user-name").append(data[i].user.name);
-			$volley.find(".volley-editable").append("<i class='fas fa-edit edit-volley' title='Edit'></i><i class='far fa-flag flag-volley' title='Flag as inappropriate'></i>");
+			$volley.find(".volley-editable").append("<i class='fas fa-edit edit-volley' title='Edit'></i><i class='far fa-flag flag-volley' title='Flag as inappropriate'></i><span class='volley-flag-count'></span>");
 			if (!data[i].editable) $volley.find(".edit-volley").hide();
 			$volley.find(".volley-content").append(data[i].content);
 			$volley.find(".edit-volley").data("id", data[i].id);// Wow !!!
@@ -363,6 +364,7 @@ $(function(){
 				$volley.find(".flag-volley").removeClass("far");
 				$volley.find(".flag-volley").addClass("fas");
 			}
+			if (data[i].flagCount > 0) $volley.find(".volley-flag-count").append(data[i].flagCount);
 			$volley.find(".volley-appendable").append("<i class='fas fa-pencil-alt' title='Append to story'>");
 			$volley.find(".volley-date").append(data[i].date.slice(0,10));
 			$volley.find(".volley-date").prop("title", data[i].date.slice(11));
