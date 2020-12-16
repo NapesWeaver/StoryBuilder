@@ -2,6 +2,7 @@ $(function(){
 	
 	var editId = 0;
 	var volleyEntryId = 0;
+	var siblingId = 0;
 	
 	var entryFlags = {};
 	var volleyFlags = {};
@@ -20,8 +21,7 @@ $(function(){
 	$("main").on("click", ".entry-appendable .fa-pencil-alt", showAppendEntryEditor);
 	$("main").on("click", ".volley-appendable .fa-pencil-alt", showAppendVolleyEditor);
 	$("main").on("click", ".edit-volley", showVolleyEditor);
-	//$("main").on("click", "#btn-save", saveVolley);
-	$("main").on("click", ".entry-append", entryAppend);
+	$("main").on("click", ".entry-append", saveVolley);
 	$("main").on("click", ".volley-append", volleyAppend);
 	$("main").on("click", "#btn-delete", deleteVolley);
 	$("main").on("click", "#btn-cancel", hideEditor);
@@ -30,8 +30,7 @@ $(function(){
 	getUserVolleyFlags();
 	getEntries();
 	
-	function search() {
-		
+	function search() {		
 		var query = $("#search").val().trim();
 		$("#search").val("");
 		
@@ -66,8 +65,7 @@ $(function(){
 		});
 	}
 	
-	function getVollies() {
-		
+	function getVollies() {		
 		var $icon = $(this);
 		var entryId = $icon.parent().parent().find(".edit-entry").data("id");
 		var $volleyTemplate = $icon.parent().parent().find(".template-display-volley");
@@ -80,8 +78,7 @@ $(function(){
 		} else {
 			$icon.removeClass("fa-book");
 			$icon.addClass("fa-book-open");
-			//$(".toggle-book").attr("title", "Close story");
-			
+			//$(".toggle-book").attr("title", "Close story");			
 			$.ajax({
 				url: "/get-vollies",
 				method: "get",
@@ -114,13 +111,12 @@ $(function(){
 		}
 	}
 	
-	function entryAppend() {
-		console.log("entryAppend");
+	function saveVolley() {
+		console.log("entryAppend");		
 		var content = $(".popup-editor textarea").val().trim();
 		
 		if (content != "") {
-			$.ajax({
-		
+			$.ajax({		
 				url: "/save-volley",
 				method: "post",
 				type: "json",
@@ -136,20 +132,19 @@ $(function(){
 	}
 	
 	function volleyAppend() {
-		console.log("volleyAppend");
-		console.log("editId:", editId, "volleyEntryId:", volleyEntryId)
 		var content = $(".popup-editor textarea").val().trim();
 		
 		if (content != "") {
 			$.ajax({
 		
-				url: "/save-volley-as-entry",
+				url: "/volley-append",
 				method: "post",
 				type: "json",
 				data: {
 					content: content,
 					id: editId,
-					entryId: volleyEntryId
+					entryId: volleyEntryId,
+					siblingId: siblingId
 				},
 				error: ajaxError,
 				success: reloadEntries
@@ -168,7 +163,7 @@ $(function(){
 		});
 	}
 	
-	function deleteVolley() {
+	/*function deleteVolley() {
 		$.ajax({
 			url: "/delete-volley",
 			method: "get",
@@ -177,10 +172,27 @@ $(function(){
 			error: ajaxError,
 			success: reloadEntries
 		});
+	}*/
+	
+	function deleteVolley() {		
+		var entryId = $(this).parent().parent().find(".edit-entry").data("id");		
+		
+		$.ajax({
+			url: "/delete-volley",
+			method: "get",
+			type: "json",
+			data: {
+				id: editId,
+				entryId: entryId,
+				volleyId: volleyEntryId,
+				
+			},
+			error: ajaxError,
+			success: reloadEntries
+		});
 	}
 	
 	function flagEntry() {
-
 		var flagged = false;
 		editId = $(this).parent().find(".edit-entry").data("id");
 		
@@ -206,8 +218,7 @@ $(function(){
 		});
 	}
 	
-	function flagVolley() {
-		
+	function flagVolley() {		
 		var flagged = false;
 		editId = $(this).parent().find(".edit-volley").data("id");
 		
@@ -319,7 +330,7 @@ $(function(){
 	function showAppendEntryEditor() {
 		console.log("showAppendEntryEditor");
 		hideEditor();
-		volleyEntryId = $(this).parent().parent().find(".edit-entry").data("id");
+		volleyEntryId = $(this).parent().parent().find(".edit-entry").data("id");		
 		$("#btn-save").addClass("entry-append");
 		$("#btn-save").removeClass("volley-append");
 		$("#btn-delete").hide();
@@ -334,6 +345,7 @@ $(function(){
 		console.log("showAppendVolleyEditor");
 		hideEditor();
 		volleyEntryId = $(this).parent().parent().parent().find(".edit-entry").data("id");
+		siblingId =  $(this).parent().parent().find(".edit-volley").data("id");
 		$("#btn-save").addClass("volley-append");
 		$("#btn-save").removeClass("entry-append");
 		$("#btn-delete").hide();
@@ -346,6 +358,7 @@ $(function(){
 	
 	function showVolleyEditor() {
 		console.log("showVolleyEditor");
+		volleyEntryId = $(this).parent().parent().prev().find(".edit-volley").data("id");
 		hideEditor();
 		$("#btn-delete").show();
 		var $popup = $("#popup-editor").clone();
@@ -397,24 +410,24 @@ $(function(){
 		for (var i = 0; i < data.length; i++) {
 			
 			if (data[i].hidden == false) {
-			var $volley = $volleyTemplate.clone();
-			$volley.removeClass("template-display-volley");
-			$volley.addClass("volley");
-			//data[i].isEntry ? $volley.addClass("entry") : $volley.addClass("volley");
-			$volley.find(".volley-user-name").append(data[i].user.name);
-			$volley.find(".volley-editable").append("<i class='fas fa-edit edit-volley' title='Edit'></i><i class='far fa-flag flag-volley' title='Flag as inappropriate'></i><span class='volley-flag-count'></span>");
-			if (!data[i].editable) $volley.find(".edit-volley").hide();
-			$volley.find(".volley-content").append(data[i].content);
-			$volley.find(".edit-volley").data("id", data[i].id);// Wow !!!
-			if (volleyFlags.hasOwnProperty(data[i].id)) {
-				$volley.find(".flag-volley").removeClass("far");
-				$volley.find(".flag-volley").addClass("fas");
-			}
-			if (data[i].flagCount > 0) $volley.find(".volley-flag-count").append(data[i].flagCount);
-			$volley.find(".volley-appendable").append("<i class='fas fa-pencil-alt' title='Append to volley'>");
-			$volley.find(".volley-date").append(data[i].date.slice(0,10));
-			$volley.find(".volley-date").prop("title", data[i].date.slice(11));
-			$volleyTemplate.parent().append($volley);				
+				var $volley = $volleyTemplate.clone();
+				$volley.removeClass("template-display-volley");
+				//$volley.addClass("volley");
+				data[i].isEntry ? $volley.addClass("entry") : $volley.addClass("volley");
+				$volley.find(".volley-user-name").append(data[i].user.name);
+				$volley.find(".volley-editable").append("<i class='fas fa-edit edit-volley' title='Edit'></i><i class='far fa-flag flag-volley' title='Flag as inappropriate'></i><span class='volley-flag-count'></span>");
+				if (!data[i].editable || data[i].isEntry) $volley.find(".edit-volley").hide();
+				$volley.find(".volley-content").append(data[i].content);
+				$volley.find(".edit-volley").data("id", data[i].id);// Wow !!!
+				if (volleyFlags.hasOwnProperty(data[i].id)) {
+					$volley.find(".flag-volley").removeClass("far");
+					$volley.find(".flag-volley").addClass("fas");
+				}
+				if (data[i].flagCount > 0) $volley.find(".volley-flag-count").append(data[i].flagCount);
+				$volley.find(".volley-appendable").append("<i class='fas fa-pencil-alt' title='Append to volley'>");
+				$volley.find(".volley-date").append(data[i].date.slice(0,10));
+				$volley.find(".volley-date").prop("title", data[i].date.slice(11));
+				$volleyTemplate.parent().append($volley);				
 			}
 		}
 	}	

@@ -154,11 +154,12 @@ public class EntryController {
 		return null;
 	}
 	
-	@RequestMapping("/save-volley-as-entry")
+	@RequestMapping("/volley-append")
 	public Volley saveVolleyAsEntry(
 			@RequestParam String content,
 			@RequestParam int id,
-			@RequestParam int entryId) {
+			@RequestParam int entryId,
+			@RequestParam int siblingId) {
 		
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String name = auth.getName();
@@ -171,7 +172,7 @@ public class EntryController {
 				volley.setDate(new Date());
 				volley.setFlagCount(0);
 				volley.setSiblingId(0);
-				volley.setIsEntry(true);
+				volley.setIsEntry(false);
 				volley.setHidden(false);
 				volley = VolleyRepo.save(volley);
 				return volley;
@@ -181,8 +182,14 @@ public class EntryController {
 			Volley volley = new Volley();
 			List<Volley> vollies = (List<Volley>) VolleyRepo.findAllByEntryOrderByDateAsc(entry);
 			for (Volley unusedVolley : vollies ) {
-				if(unusedVolley.getIsEntry() == false) {					
+				if(unusedVolley.getIsEntry() == false && unusedVolley.isHidden() == false && unusedVolley.getId() != siblingId) {					
 					unusedVolley.setHidden(true);
+					unusedVolley.setSiblingId(siblingId);
+					unusedVolley = VolleyRepo.save(unusedVolley);
+				}
+				if(unusedVolley.getId() == siblingId) {
+					unusedVolley.setIsEntry(true);
+					unusedVolley.setSiblingId(siblingId);
 					unusedVolley = VolleyRepo.save(unusedVolley);
 				}
 			}
@@ -192,7 +199,7 @@ public class EntryController {
 			volley.setDate(new Date());
 			volley.setFlagCount(0);
 			volley.setSiblingId(0);
-			volley.setIsEntry(true);
+			volley.setIsEntry(false);
 			volley.setHidden(false);
 			volley = VolleyRepo.save(volley);			
 			return volley;
@@ -213,7 +220,7 @@ public class EntryController {
 		return entry;
 	}
 	
-	@RequestMapping("/delete-volley")
+	/*@RequestMapping("/delete-volley")
 	public Volley deleteVolley(@RequestParam int id) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String name = auth.getName();
@@ -224,23 +231,25 @@ public class EntryController {
 			VolleyRepo.delete(volley);
 		}		
 		return volley;
-	}
+	}*/
 	
-	@RequestMapping("/delete-volley-as-entry")
-	public Volley deleteVolleyAsEntry(@RequestParam int id) {
+	@RequestMapping("/delete-volley")
+	public Volley deleteVolleyAsEntry(@RequestParam int id, @RequestParam int entryId, @RequestParam int volleyId) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String name = auth.getName();
 		User user = UserRepo.findFirstByName(name);
 		Volley volley = VolleyRepo.findById(id).get();
-		
-		/*Entry entry = EntryRepo.findById(entryId).get();
-		
+		Entry entry = EntryRepo.findById(entryId).get();	
 		List<Volley> vollies = (List<Volley>) VolleyRepo.findAllByEntryOrderByDateAsc(entry);
-		for (Volley unusedVolley : vollies ) {
-			unusedVolley.setHidden(true);
-			unusedVolley = VolleyRepo.save(unusedVolley);
-		}*/
 		
+		for (Volley unusedVolley : vollies ) {			
+			if(unusedVolley.getSiblingId() == volleyId) {				
+				unusedVolley.setSiblingId(0);
+				unusedVolley.setIsEntry(false);
+				unusedVolley.setHidden(false);
+				unusedVolley = VolleyRepo.save(unusedVolley);
+			}
+		}		
 		if (user.getName().equals(volley.getUser().getName())) {			
 			VolleyRepo.delete(volley);
 		}		

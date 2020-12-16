@@ -14,6 +14,6 @@ public interface VolleyRepository extends PagingAndSortingRepository<Volley, Int
 	//public List<Volley> findByEntryId(int id);
 	public Optional<Volley> findById(Integer id);
 	public List<Volley> findAllByEntryOrderByDateAsc(Entry entry);
-	@Query(value = "SELECT volley_entry_id FROM vollies", nativeQuery = true)
+	@Query(value = "SELECT volley_entry_id FROM vollies WHERE is_hidden = false", nativeQuery = true)
 	public List<Integer> getVolleyEntryIds();
 }
