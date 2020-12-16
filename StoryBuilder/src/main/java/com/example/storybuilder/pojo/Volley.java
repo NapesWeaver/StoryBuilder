@@ -31,6 +31,8 @@ public class Volley {
 	private Date date;
 	@Column(name="volley_flag_count")
 	private int flagCount;
+	@Column(name="sibling_id")
+	private int siblingId;
 	@Column(name="is_entry")
 	private Boolean isEntry;
 	@Column(name="is_hidden")
@@ -73,7 +75,13 @@ public class Volley {
 	}
 	public void setFlagCount(int flagCount) {
 		this.flagCount += flagCount;
-	}	
+	}			
+	public int getSiblingId() {
+		return siblingId;
+	}
+	public void setSiblingId(int siblingId) {
+		this.siblingId = siblingId;
+	}
 	public Boolean getIsEntry() {
 		return isEntry;
 	}

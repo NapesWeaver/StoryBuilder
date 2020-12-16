@@ -5,8 +5,8 @@ $(function(){
 	
 	var entryFlags = {};
 	var volleyFlags = {};
-	var entryThumbs = {};
-	var volleyThumbs = {};
+	//var entryThumbs = {};
+	//var volleyThumbs = {};
 	
 	$("#btn-new").click(showNewEditor);
 	$("#btn-search").click(search);
@@ -20,7 +20,9 @@ $(function(){
 	$("main").on("click", ".entry-appendable .fa-pencil-alt", showAppendEntryEditor);
 	$("main").on("click", ".volley-appendable .fa-pencil-alt", showAppendVolleyEditor);
 	$("main").on("click", ".edit-volley", showVolleyEditor);
-	$("main").on("click", "#btn-save", saveVolley);
+	//$("main").on("click", "#btn-save", saveVolley);
+	$("main").on("click", ".entry-append", entryAppend);
+	$("main").on("click", ".volley-append", volleyAppend);
 	$("main").on("click", "#btn-delete", deleteVolley);
 	$("main").on("click", "#btn-cancel", hideEditor);
 		
@@ -29,25 +31,29 @@ $(function(){
 	getEntries();
 	
 	function search() {
-		console.log("search");
-		var query = $("#search").val();
+		
+		var query = $("#search").val().trim();
 		$("#search").val("");
 		
-		$.ajax({
-			url: "/search-entries",
-			method: "get",
-			dataType: "json",
-			data: {
-				query,
-				limit: 100,
-				offset: 0
-			},
-			error: ajaxError,
-			success: function(data) {
-				$(".entry").remove();
-				buildEntries(data);
-			}
-		});
+		if (query == "") {
+			reloadEntries();
+		} else {
+			$.ajax({
+				url: "/search-entries",
+				method: "get",
+				dataType: "json",
+				data: {
+					query,
+					limit: 100,
+					offset: 0
+				},
+				error: ajaxError,
+				success: function(data) {
+					$(".entry").remove();
+					buildEntries(data);
+				}
+			});			
+		}
 	}
 	
 	function getEntries() {
@@ -108,8 +114,8 @@ $(function(){
 		}
 	}
 	
-	function saveVolley() {
-		console.log("saveVolley");
+	function entryAppend() {
+		console.log("entryAppend");
 		var content = $(".popup-editor textarea").val().trim();
 		
 		if (content != "") {
@@ -129,14 +135,15 @@ $(function(){
 		}
 	}
 	
-	function saveVolley2() {
-		console.log("saveVolley2");
+	function volleyAppend() {
+		console.log("volleyAppend");
+		console.log("editId:", editId, "volleyEntryId:", volleyEntryId)
 		var content = $(".popup-editor textarea").val().trim();
 		
 		if (content != "") {
 			$.ajax({
 		
-				url: "/save-volley",
+				url: "/save-volley-as-entry",
 				method: "post",
 				type: "json",
 				data: {
@@ -313,6 +320,8 @@ $(function(){
 		console.log("showAppendEntryEditor");
 		hideEditor();
 		volleyEntryId = $(this).parent().parent().find(".edit-entry").data("id");
+		$("#btn-save").addClass("entry-append");
+		$("#btn-save").removeClass("volley-append");
 		$("#btn-delete").hide();
 		var $popup = $("#popup-editor").clone();
 		$popup.removeAttr("id");
@@ -325,6 +334,8 @@ $(function(){
 		console.log("showAppendVolleyEditor");
 		hideEditor();
 		volleyEntryId = $(this).parent().parent().parent().find(".edit-entry").data("id");
+		$("#btn-save").addClass("volley-append");
+		$("#btn-save").removeClass("entry-append");
 		$("#btn-delete").hide();
 		var $popup = $("#popup-editor").clone();
 		$popup.removeAttr("id");
@@ -334,6 +345,7 @@ $(function(){
 	}
 	
 	function showVolleyEditor() {
+		console.log("showVolleyEditor");
 		hideEditor();
 		$("#btn-delete").show();
 		var $popup = $("#popup-editor").clone();
@@ -383,9 +395,12 @@ $(function(){
 		$volleyTemplate.parent().find(".volley").remove();
 				
 		for (var i = 0; i < data.length; i++) {
+			
+			if (data[i].hidden == false) {
 			var $volley = $volleyTemplate.clone();
 			$volley.removeClass("template-display-volley");
 			$volley.addClass("volley");
+			//data[i].isEntry ? $volley.addClass("entry") : $volley.addClass("volley");
 			$volley.find(".volley-user-name").append(data[i].user.name);
 			$volley.find(".volley-editable").append("<i class='fas fa-edit edit-volley' title='Edit'></i><i class='far fa-flag flag-volley' title='Flag as inappropriate'></i><span class='volley-flag-count'></span>");
 			if (!data[i].editable) $volley.find(".edit-volley").hide();
@@ -399,7 +414,8 @@ $(function(){
 			$volley.find(".volley-appendable").append("<i class='fas fa-pencil-alt' title='Append to volley'>");
 			$volley.find(".volley-date").append(data[i].date.slice(0,10));
 			$volley.find(".volley-date").prop("title", data[i].date.slice(11));
-			$volleyTemplate.parent().append($volley);
+			$volleyTemplate.parent().append($volley);				
+			}
 		}
 	}	
 });
