@@ -361,7 +361,10 @@ $(function(){
 	function showVolleyEditor() {
 		console.log("showVolleyEditor");
 		volleyEntryId = $(this).parent().parent().prev().find(".edit-volley").data("id");
+		console.log("volleyEntryId", volleyEntryId);
 		hideEditor();
+		$("#btn-save").addClass("entry-append");
+		$("#btn-save").removeClass("volley-append");
 		$("#btn-delete").show();
 		var $popup = $("#popup-editor").clone();
 		$popup.removeAttr("id");
@@ -414,7 +417,6 @@ $(function(){
 			if (data[i].hidden == false) {
 				var $volley = $volleyTemplate.clone();
 				$volley.removeClass("template-display-volley");
-				//$volley.addClass("volley");
 				data[i].isEntry ? $volley.addClass("is-entry") : $volley.addClass("volley");
 				$volley.find(".volley-user-name").append(data[i].user.name);
 				$volley.find(".volley-editable").append("<i class='fas fa-edit edit-volley' title='Edit'></i><i class='far fa-flag flag-volley' title='Flag as inappropriate'></i><span class='volley-flag-count'></span>");
@@ -426,7 +428,7 @@ $(function(){
 					$volley.find(".flag-volley").addClass("fas");
 				}
 				if (data[i].flagCount > 0) $volley.find(".volley-flag-count").append(data[i].flagCount);
-				$volley.find(".volley-appendable").append("<i class='fas fa-pencil-alt' title='Append to volley'>");
+				if (!data[i].isEntry) $volley.find(".volley-appendable").append("<i class='fas fa-pencil-alt' title='Append to volley'>");
 				$volley.find(".volley-date").append(data[i].date.slice(0,10));
 				$volley.find(".volley-date").prop("title", data[i].date.slice(11));
 				$volleyTemplate.parent().append($volley);				
