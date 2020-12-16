@@ -73,13 +73,13 @@ $(function(){
 		if ($(this).attr("class").includes("open")) {
 			$(".toggle-book").removeClass("fa-book-open");
 			$(".toggle-book").addClass("fa-book");
-			//$(".toggle-book").attr("title", "Open story");
+			$(".toggle-book").attr("title", "Open story");
 			$(".is-entry").remove();
 			$(".volley").remove();
 		} else {
 			$icon.removeClass("fa-book");
 			$icon.addClass("fa-book-open");
-			//$(".toggle-book").attr("title", "Close story");			
+			$(".toggle-book").attr("title", "Close story");			
 			$.ajax({
 				url: "/get-vollies",
 				method: "get",
@@ -307,6 +307,7 @@ $(function(){
 	
 	function reloadEntries() {
 		$(".entry").remove();
+		$(".toggle-book").attr("title", "Open story");
 		getEntries();
 		hideEditor();
 	}	
