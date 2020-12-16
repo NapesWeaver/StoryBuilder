@@ -74,6 +74,7 @@ $(function(){
 			$(".toggle-book").removeClass("fa-book-open");
 			$(".toggle-book").addClass("fa-book");
 			//$(".toggle-book").attr("title", "Open story");
+			$(".is-entry").remove();
 			$(".volley").remove();
 		} else {
 			$icon.removeClass("fa-book");
@@ -413,7 +414,7 @@ $(function(){
 				var $volley = $volleyTemplate.clone();
 				$volley.removeClass("template-display-volley");
 				//$volley.addClass("volley");
-				data[i].isEntry ? $volley.addClass("entry") : $volley.addClass("volley");
+				data[i].isEntry ? $volley.addClass("is-entry") : $volley.addClass("volley");
 				$volley.find(".volley-user-name").append(data[i].user.name);
 				$volley.find(".volley-editable").append("<i class='fas fa-edit edit-volley' title='Edit'></i><i class='far fa-flag flag-volley' title='Flag as inappropriate'></i><span class='volley-flag-count'></span>");
 				if (!data[i].editable || data[i].isEntry) $volley.find(".edit-volley").hide();

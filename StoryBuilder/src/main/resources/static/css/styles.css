@@ -95,7 +95,8 @@ header,
 	box-shadow: 3px 3px 6px #000000;	
 }
 
-.entry {
+.entry,
+.is-entry {
 	position: relative;
 	margin-top: .3em;
 	margin-bottom: .3em;
