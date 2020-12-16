@@ -419,7 +419,7 @@ $(function(){
 				$volley.removeClass("template-display-volley");
 				data[i].isEntry ? $volley.addClass("is-entry") : $volley.addClass("volley");
 				$volley.find(".volley-user-name").append(data[i].user.name);
-				$volley.find(".volley-editable").append("<i class='fas fa-edit edit-volley' title='Edit'></i><i class='far fa-flag flag-volley' title='Flag as inappropriate'></i><span class='volley-flag-count'></span>");
+				$volley.find(".volley-editable").append("<i class='fas fa-edit edit-volley' title='Edit volley'></i><i class='far fa-flag flag-volley' title='Flag as inappropriate'></i><span class='volley-flag-count'></span>");
 				if (!data[i].editable || data[i].isEntry) $volley.find(".edit-volley").hide();
 				$volley.find(".volley-content").append(data[i].content);
 				$volley.find(".edit-volley").data("id", data[i].id);// Wow !!!
