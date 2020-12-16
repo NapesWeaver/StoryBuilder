@@ -402,7 +402,7 @@ $(function(){
 			if (data[i].volleyCount < 1) $entry.find(".fa-book").hide();
 			if (data[i].volleyCount > 1) $entry.find(".volley-count").append(data[i].volleyCount);
 			$entry.find(".entry-date").append(data[i].date.slice(0,10))
-			$entry.find(".entry-date").prop("title", data[i].date.slice(11));
+			$entry.find(".entry-date").prop("title", data[i].date.slice(11, 19));
 			$("main").append($entry);
 		}
 	}
@@ -430,7 +430,7 @@ $(function(){
 				if (data[i].flagCount > 0) $volley.find(".volley-flag-count").append(data[i].flagCount);
 				if (!data[i].isEntry) $volley.find(".volley-appendable").append("<i class='fas fa-pencil-alt' title='Append to volley'>");
 				$volley.find(".volley-date").append(data[i].date.slice(0,10));
-				$volley.find(".volley-date").prop("title", data[i].date.slice(11));
+				$volley.find(".volley-date").prop("title", data[i].date.slice(11, 19));
 				$volleyTemplate.parent().append($volley);				
 			}
 		}
