@@ -120,9 +120,9 @@ $(function(){
 	function saveEntry() {
 		console.log("saveEntry");		
 		var content = $("#popup-editor textarea").val().trim();
+		
 		var $div = $("<div>");
 		var $images = $("<p></p>");
-		console.log("uploads", uploads);
 		
 		for (var i = 0; i < uploads.length; i++) {
 			var $a = $("<a><a/>");
@@ -145,8 +145,7 @@ $(function(){
 				},
 				error: ajaxError,
 				success: function() {
-					uploads = [];
-					
+					uploads = [];					
 					reloadEntries();
 				}
 			});	
@@ -159,7 +158,6 @@ $(function(){
 		
 		var $div = $("<div>");
 		var $images = $("<p></p>");
-		console.log("uploads", uploads);
 		
 		for (var i = 0; i < uploads.length; i++) {
 			var $a = $("<a><a/>");
@@ -171,7 +169,7 @@ $(function(){
 		}
 		$div.append($images);
 		
-		//if (content != "") {
+		if (content != "" || uploads.length > 0) {
 			$.ajax({		
 				url: "/save-volley",
 				method: "post",
@@ -182,33 +180,54 @@ $(function(){
 					entryId: volleyEntryId
 				},
 				error: ajaxError,
-				success: reloadEntries
+				success: function() {
+					uploads = [];
+					reloadEntries();
+				}
 			});			
-		//}
+		}
 	}
 	
 	function volleyAppend() {
+		console.log("volleyAppend");
 		var content = $(".popup-editor textarea").val().trim();
 		
-		if (content != "") {
+		var $div = $("<div>");
+		var $images = $("<p></p>");
+		
+		for (var i = 0; i < uploads.length; i++) {
+			var $a = $("<a><a/>");
+			$a.attr("href", uploads[i].file);
+			$img = $("<img/>");
+			$img.attr("src", uploads[i].thumbnail);
+			$a.append($img);
+			$images.append($a);			
+		}
+		$div.append($images);
+		
+		if (content != "" || uploads.length > 0) {
 			$.ajax({
 		
 				url: "/volley-append",
 				method: "post",
 				type: "json",
 				data: {
-					content: content,
+					content: $div.html() + content,
 					id: editId,
 					entryId: volleyEntryId,
 					siblingId: siblingId
 				},
 				error: ajaxError,
-				success: reloadEntries
+				success: function() {
+					uploads = [];
+					reloadEntries();
+				}
 			});			
 		}
 	}
 	
 	function deleteEntry() {
+		console.log("deleteEntry");
 		$.ajax({
 			url: "/delete-entry",
 			method: "get",
@@ -231,6 +250,7 @@ $(function(){
 	}*/
 	
 	function deleteVolley() {		
+		console.log("deleteVolley");
 		var entryId = $(this).parent().parent().find(".edit-entry").data("id");
 		
 		$.ajax({
@@ -355,17 +375,6 @@ $(function(){
 			}
 		});
 	}
-	
-	function ajaxError() {
-		alert("AJAX ERROR");
-	}
-	
-	function reloadEntries() {
-		$(".entry").remove();
-		$(".toggle-book").attr("title", "Open story");
-		getEntries();
-		hideEditor();
-	}	
 
 	function showNewEditor() {
 		console.log("showNewEditor");
@@ -391,10 +400,13 @@ $(function(){
 		$("#btn-save").addClass("entry-append");
 		$("#btn-save").removeClass("volley-append");
 		$("#btn-delete").hide();
+		
+		var $dz = $("#upload").detach();
 		var $popup = $("#popup-editor").clone();
 		$popup.removeAttr("id");
 		$popup.addClass("popup-editor");
 		$(this).parent().parent().after($popup);
+		$popup.prepend($dz);
 		$popup.show();
 	}
 		
@@ -406,39 +418,60 @@ $(function(){
 		$("#btn-save").addClass("volley-append");
 		$("#btn-save").removeClass("entry-append");
 		$("#btn-delete").hide();
+		
+		var $dz = $("#upload").detach();
 		var $popup = $("#popup-editor").clone();
 		$popup.removeAttr("id");
 		$popup.addClass("popup-editor");
 		$(this).parent().parent().after($popup);
+		$popup.prepend($dz);
 		$popup.show();
 	}
 	
 	function showVolleyEditor() {
 		console.log("showVolleyEditor");
-		volleyEntryId = $(this).parent().parent().prev().find(".edit-volley").data("id");
-		if (volleyEntryId == undefined) volleyEntryId = 0;
-		console.log("volleyEntryId", volleyEntryId);
 		hideEditor();
+		volleyEntryId = $(this).parent().parent().prev().find(".edit-volley").data("id");		
+		if (volleyEntryId == undefined) volleyEntryId = 0;		
 		$("#btn-save").addClass("entry-append");
 		$("#btn-save").removeClass("volley-append");
 		$("#btn-delete").show();
+		
+		var $dz = $("#upload").detach();
 		var $popup = $("#popup-editor").clone();
 		$popup.removeAttr("id");
 		$popup.addClass("popup-editor");
 		$(this).parent().parent().after($popup);
+		$popup.prepend($dz);
+		
 		var text = $(this).parent().parent().find(".volley-content").text();
 		$(".popup-editor textarea").val(text);
+		
 		$popup.show();
+		
 		editId = $(this).data("id");
 	}
 	
-	function hideEditor() {
-		editId = 0;
-		$("#upload").html("<div class='dz-default dz-message'>Drop files here to upload</div>");
-		$("#popup-editor textarea").val("");
+	function hideEditor() {		
+		var $dz = $("#upload").detach();
+		$("#popup-editor").prepend($dz);
 		$(".popup-editor").remove();
-		$("#popup-editor").hide();
-		
+		$("#popup-editor textarea").val("");
+		$("#upload").html("<div class='dz-default dz-message'>Drop files here to upload</div>");
+		$("#popup-editor").hide();		
+		editId = 0;
+	}
+	
+	function reloadEntries() {
+		hideEditor();
+		$(".entry").remove();
+		$(".toggle-book").attr("title", "Open story");
+		getEntries();
+	}	
+	
+	function ajaxError() {
+		alert("AJAX ERROR");
+		reloadEntries();
 	}
 	
 	function buildEntries(data) {

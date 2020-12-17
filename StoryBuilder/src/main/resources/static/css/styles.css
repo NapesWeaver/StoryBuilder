@@ -71,6 +71,11 @@ img {
 	width: 41ch;
 }
 
+.is-entry img,
+.volley img {
+	width: 38ch;
+}
+
 header,
 #popup-editor,
 .popup-editor {
