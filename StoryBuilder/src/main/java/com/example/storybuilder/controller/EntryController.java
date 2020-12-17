@@ -94,7 +94,7 @@ public class EntryController {
 		String name = auth.getName();
 		User user = UserRepo.findFirstByName(name);
 		
-		if (id > 0) {
+		if (id > 0) {// Existing entry
 			Entry entry = EntryRepo.findById(id).get();
 			if(user.getName().equals(entry.getUser().getName())) {
 				entry.setContent(content);
@@ -103,7 +103,7 @@ public class EntryController {
 				entry = EntryRepo.save(entry);
 				return entry;
 			}
-		} else {
+		} else {// New entry
 			Entry entry = new Entry();
 			entry.setUser(user);
 			entry.setContent(content);
@@ -125,7 +125,7 @@ public class EntryController {
 		String name = auth.getName();
 		User user = UserRepo.findFirstByName(name);
 		
-		if (id > 0) {
+		if (id > 0) {// Existing volley
 			Volley volley = VolleyRepo.findById(id).get();
 			if(user.getName().equals(volley.getUser().getName())) {
 				volley.setContent(content);
@@ -137,7 +137,7 @@ public class EntryController {
 				volley = VolleyRepo.save(volley);
 				return volley;
 			}
-		} else {
+		} else {// New volley
 			Entry entry = EntryRepo.findById(entryId).get();
 			Volley volley = new Volley();
 			volley.setUser(user);

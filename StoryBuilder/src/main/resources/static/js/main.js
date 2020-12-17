@@ -9,6 +9,10 @@ $(function(){
 	//var entryThumbs = {};
 	//var volleyThumbs = {};
 	
+	var uploads = [];
+	
+	initUpload();
+	
 	$("#btn-new").click(showNewEditor);
 	$("#btn-search").click(search);
 	$("#btn-save").click(saveEntry);
@@ -29,6 +33,26 @@ $(function(){
 	getUserEntryFlags();
 	getUserVolleyFlags();
 	getEntries();
+	
+	function initUpload() {
+		var dzDiv = $("#upload");
+		dzDiv.addClass("dropzone");
+		var dz = new Dropzone("#upload", {
+			paramName : "files",
+			url : "/upload"
+		
+		});
+		dz.on("success", uploadComplete);
+		dz.on("error", function(file, msg) {
+			alert(msg);
+			//dz.removeFile(file);
+		});
+	}
+	
+	function uploadComplete(event, response) {
+		console.log(response);
+		uploads.push(response);
+	}
 	
 	function search() {		
 		var query = $("#search").val().trim();
@@ -94,43 +118,73 @@ $(function(){
 	}
 	
 	function saveEntry() {
-		console.log("saveEntry");
+		console.log("saveEntry");		
 		var content = $("#popup-editor textarea").val().trim();
+		var $div = $("<div>");
+		var $images = $("<p></p>");
+		console.log("uploads", uploads);
 		
-		if (content != "") {
+		for (var i = 0; i < uploads.length; i++) {
+			var $a = $("<a><a/>");
+			$a.attr("href", uploads[i].file);
+			$img = $("<img/>");
+			$img.attr("src", uploads[i].thumbnail);
+			$a.append($img);
+			$images.append($a);			
+		}
+		$div.append($images);		
+		
+		if (content != "" || uploads.length > 0) {
 			$.ajax({
 				url: "/save-entry",
 				method: "post",
 				type: "json",
 				data: {
-					content,
+					content: $div.html() + content,
 					id: editId
 				},
 				error: ajaxError,
-				success: reloadEntries
-			});			
+				success: function() {
+					uploads = [];
+					
+					reloadEntries();
+				}
+			});	
 		}
 	}
 	
 	function saveVolley() {
 		console.log("saveVolley");		
-		console.log("volleyEntryId", volleyEntryId);
-		var content = $(".popup-editor textarea").val().trim();
+		var content = $(".popup-editor textarea").val().trim();		
 		
-		if (content != "") {
+		var $div = $("<div>");
+		var $images = $("<p></p>");
+		console.log("uploads", uploads);
+		
+		for (var i = 0; i < uploads.length; i++) {
+			var $a = $("<a><a/>");
+			$a.attr("href", uploads[i].file);
+			$img = $("<img/>");
+			$img.attr("src", uploads[i].thumbnail);
+			$a.append($img);
+			$images.append($a);			
+		}
+		$div.append($images);
+		
+		//if (content != "") {
 			$.ajax({		
 				url: "/save-volley",
 				method: "post",
 				type: "json",
 				data: {
-					content: content,
+					content: $div.html() + content,
 					id: editId,
 					entryId: volleyEntryId
 				},
 				error: ajaxError,
 				success: reloadEntries
 			});			
-		}
+		//}
 	}
 	
 	function volleyAppend() {
@@ -380,6 +434,7 @@ $(function(){
 	
 	function hideEditor() {
 		editId = 0;
+		$("#upload").html("<div class='dz-default dz-message'>Drop files here to upload</div>");
 		$("#popup-editor textarea").val("");
 		$(".popup-editor").remove();
 		$("#popup-editor").hide();

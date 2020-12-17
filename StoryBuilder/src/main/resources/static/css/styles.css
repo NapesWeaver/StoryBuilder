@@ -63,6 +63,14 @@ main {
 	margin-top: 4.15em;
 }
 
+p a:nth-child(2) {
+  display: none;
+}
+
+img {
+	width: 41ch;
+}
+
 header,
 #popup-editor,
 .popup-editor {
