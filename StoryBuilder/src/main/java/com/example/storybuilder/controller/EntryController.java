@@ -33,14 +33,14 @@ public class EntryController {
 	}
 	
 	@RequestMapping("/search-entries")
-	public List<Entry> serachEntrys(
-			@RequestParam String query,
+	public List<Entry> serachEntriess(
+			@RequestParam String text,
 			@RequestParam int limit,
 			@RequestParam int offset) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String name = auth.getName();		
 		Pageable page = PageRequest.of(offset / limit, limit);		
-		List<Entry> entries = (List<Entry>) EntryRepo.findAllByContentContainingOrderByDateDesc(query, page);
+		List<Entry> entries = (List<Entry>) EntryRepo.findAllByContentContainingOrderByDateDesc(text, page);
 		
 		for (Entry entry: entries) {
 			if (name.equals(entry.getUser().getName())) {
@@ -51,10 +51,12 @@ public class EntryController {
 	}	
 	
 	@RequestMapping("/get-entries")
-	public List<Entry> getEntries() {
+	public List<Entry> getEntries(@RequestParam int limit, @RequestParam int offset) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String name = auth.getName();
-		List<Entry> entries = (List<Entry>) EntryRepo.findAll();
+		//List<Entry> entries = (List<Entry>) EntryRepo.findAll();
+		Pageable page = PageRequest.of(offset / limit, limit);
+		List<Entry> entries = (List<Entry>) EntryRepo.findAllByOrderByDateDesc(page);
 		List<Integer> volleyEntryIds = VolleyRepo.getVolleyEntryIds();
 		
 		for (Entry entry: entries) {			

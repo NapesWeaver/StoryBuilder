@@ -11,8 +11,15 @@ $(function(){
 	
 	var uploads = [];
 	
+	var offset = 0;
+	//var limit = 11;
+	var limit = 6;
+	var ajaxDone = true;
+	var morePages = true;
+	
 	initUpload();
 	
+	$(window).scroll(scrolled);
 	$("#btn-new").click(showNewEditor);
 	$("#btn-search").click(search);
 	$("#btn-save").click(saveEntry);
@@ -45,7 +52,7 @@ $(function(){
 		dz.on("success", uploadComplete);
 		dz.on("error", function(file, msg) {
 			alert(msg);
-			//dz.removeFile(file);
+			dz.removeFile(file);
 		});
 	}
 	
@@ -54,38 +61,76 @@ $(function(){
 		uploads.push(response);
 	}
 	
-	function search() {		
-		var query = $("#search").val().trim();
-		$("#search").val("");
-		
-		if (query == "") {
-			reloadEntries();
-		} else {
-			$.ajax({
-				url: "/search-entries",
-				method: "get",
-				dataType: "json",
-				data: {
-					query,
-					limit: 100,
-					offset: 0
-				},
-				error: ajaxError,
-				success: function(data) {
-					$(".entry").remove();
-					buildEntries(data);
-				}
-			});			
+	function scrolled() {
+		if (ajaxDone && morePages) {
+			var size = $("main").height();
+			var height = $(this).height();
+			var top = $(this).scrollTop();
+			if (top >= size - height) {
+				offset += limit;
+				getEntries();
+			}			
 		}
 	}
 	
-	function getEntries() {
+	function search() {	
+		console.log("search");
+		var text = $("#search").val().trim();
+		window.scrollTo(0, 0);
+		offset = 0;
+		ajaxDone = false;
+
 		$.ajax({
-			url: "/get-entries",
+			url: "/search-entries",
+			method: "get",
+			dataType: "json",
+			data: {
+				text: text,
+				limit: limit,
+				offset: offset
+			},
+			error: ajaxError,
+			success: function(data) {
+				ajaxDone = true;
+				if (data.length < limit) {
+					morePages = false;
+				}
+				offset = 0;
+				morePages = true;
+				
+				buildSearchResults(data);
+			}
+		});		
+	}
+	
+	function buildSearchResults(data) {
+		$(".entry").remove();
+		buildEntries(data);
+	}
+	
+	function getEntries() {
+		ajaxDone = false;
+		var text = $("#search").val().trim();
+		var url = "/get-entries";
+		var data = {
+			limit: limit,
+			offset: offset
+		};
+		if (text != "") {
+			url = "/search-entries";
+			data.text = text;
+		}
+		$.ajax({
+			url,
 			method: "get",
 			type: "json",
+			data,
 			error: ajaxError,
-			success: buildEntries
+			success: function(data) {
+				ajaxDone = true;
+				if(data.length < limit) morePages = false;
+				buildEntries(data);
+			}
 		});
 	}
 	
@@ -442,13 +487,11 @@ $(function(){
 		$popup.removeAttr("id");
 		$popup.addClass("popup-editor");
 		$(this).parent().parent().after($popup);
-		$popup.prepend($dz);
-		
-		var text = $(this).parent().parent().find(".volley-content").text();
-		$(".popup-editor textarea").val(text);
-		
+		$popup.prepend($dz);		
 		$popup.show();
 		
+		var text = $(this).parent().parent().find(".volley-content").text();
+		$(".popup-editor textarea").val(text);		
 		editId = $(this).data("id");
 	}
 	
@@ -456,26 +499,29 @@ $(function(){
 		var $dz = $("#upload").detach();
 		$("#popup-editor").prepend($dz);
 		$(".popup-editor").remove();
-		$("#popup-editor textarea").val("");
+		// Not really workning :(
+		//$dz.removeFile(true);
 		$("#upload").html("<div class='dz-default dz-message'>Drop files here to upload</div>");
+		$("#popup-editor textarea").val("");
 		$("#popup-editor").hide();		
 		editId = 0;
 	}
 	
 	function reloadEntries() {
-		hideEditor();
+		hideEditor();		
 		$(".entry").remove();
 		$(".toggle-book").attr("title", "Open story");
 		getEntries();
 	}	
 	
 	function ajaxError() {
+		ajaxDone = true;
 		alert("AJAX ERROR");
 		reloadEntries();
 	}
 	
 	function buildEntries(data) {
-		console.log("buildEntries:", data);
+		console.log("buildEntries:", data);		
 		for (var i = 0; i < data.length; i++) {
 			var $entry = $("#template-display-entry").clone();
 			$entry.removeAttr("id");
