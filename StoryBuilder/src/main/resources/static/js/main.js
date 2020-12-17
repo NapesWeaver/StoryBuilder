@@ -113,7 +113,8 @@ $(function(){
 	}
 	
 	function saveVolley() {
-		console.log("entryAppend");		
+		console.log("saveVolley");		
+		console.log("volleyEntryId", volleyEntryId);
 		var content = $(".popup-editor textarea").val().trim();
 		
 		if (content != "") {
@@ -176,7 +177,7 @@ $(function(){
 	}*/
 	
 	function deleteVolley() {		
-		var entryId = $(this).parent().parent().find(".edit-entry").data("id");		
+		var entryId = $(this).parent().parent().find(".edit-entry").data("id");
 		
 		$.ajax({
 			url: "/delete-volley",
@@ -361,6 +362,7 @@ $(function(){
 	function showVolleyEditor() {
 		console.log("showVolleyEditor");
 		volleyEntryId = $(this).parent().parent().prev().find(".edit-volley").data("id");
+		if (volleyEntryId == undefined) volleyEntryId = 0;
 		console.log("volleyEntryId", volleyEntryId);
 		hideEditor();
 		$("#btn-save").addClass("entry-append");
