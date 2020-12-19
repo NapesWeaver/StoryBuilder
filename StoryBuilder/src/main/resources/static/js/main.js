@@ -148,7 +148,8 @@ $(function(){
 		} else {
 			$icon.removeClass("fa-book");
 			$icon.addClass("fa-book-open");
-			$(".toggle-book").attr("title", "Close story");			
+			$icon.attr("title", "Close story");			
+			
 			$.ajax({
 				url: "/get-vollies",
 				method: "get",
