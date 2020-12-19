@@ -57,19 +57,19 @@ public class EntryController {
 		//List<Entry> entries = (List<Entry>) EntryRepo.findAll();
 		Pageable page = PageRequest.of(offset / limit, limit);
 		List<Entry> entries = (List<Entry>) EntryRepo.findAllByOrderByDateDesc(page);
-		List<Integer> volleyEntryIds = VolleyRepo.getVolleyEntryIds();
+		//List<Integer> volleyEntryIds = VolleyRepo.getVolleyEntryIds();
 		
 		for (Entry entry: entries) {			
-			int volleyCount = 0;			
+			//int volleyCount = 0;			
 			if (name.equals(entry.getUser().getName())) {
 				entry.setEditable(true);
 			}
-			for (int volleyEntryId: volleyEntryIds) {
+			/*for (int volleyEntryId: volleyEntryIds) {
 				if (volleyEntryId == entry.getId()) {					
 					volleyCount += 1;
 				}
 				entry.setVolleyCount(volleyCount);
-			}
+			}*/
 		}		
 		return entries;
 	}

@@ -9,11 +9,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SecondaryTable;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
 @Entity
 @Table(name="Entries")
+@SecondaryTable(name="entry_vollies")
 public class Entry {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
@@ -30,8 +32,10 @@ public class Entry {
 	private int flagCount;
 	@Transient
 	private boolean editable;
-	@Transient
-	private int volleyCount;
+	//@Transient
+	//private int volleyCount;	
+	@Column(name="volley_count", table="entry_vollies", insertable=false, updatable=false)
+	private Integer volleyCount;
 	
 	public int getId() {
 		return id;
@@ -69,11 +73,14 @@ public class Entry {
 	public void setEditable(boolean editable) {
 		this.editable = editable;
 	}
-	public int getVolleyCount() {
+	/*public int getVolleyCount() {
 		return volleyCount;
 	}
 	public void setVolleyCount(int volleyCount) {
 		this.volleyCount = volleyCount;
-	}	
+	}*/
+	public Integer getVolleyCount() {
+		return volleyCount;
+	}
 }
 
