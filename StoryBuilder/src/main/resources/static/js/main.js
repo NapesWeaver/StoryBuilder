@@ -499,9 +499,7 @@ $(function(){
 		var $dz = $("#upload").detach();
 		$("#popup-editor").prepend($dz);
 		$(".popup-editor").remove();
-		// Not really workning :(
-		//$dz.removeFile(true);
-		$("#upload").html("<div class='dz-default dz-message'>Drop files here to upload</div>");
+		$("#upload").html("<div>Drop files here to upload</div>");
 		$("#popup-editor textarea").val("");
 		$("#popup-editor").hide();		
 		editId = 0;

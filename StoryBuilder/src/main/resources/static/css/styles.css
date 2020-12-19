@@ -56,7 +56,8 @@ h1 {
 }
 
 nav {	
-	background-color: green;
+	/* background-color: green; */
+	background-color: blue;
 }
 
 main {
