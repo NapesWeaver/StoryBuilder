@@ -22,9 +22,11 @@ $(function(){
 	$(window).scroll(scrolled);
 	$("#btn-new").click(showNewEditor);
 	$("#btn-search").click(search);
+	$("#search").bind("search", search);
 	$("#btn-save").click(saveEntry);
 	$("#btn-cancel").click(hideEditor);
 	$("#btn-delete").click(deleteEntry);
+	
 	$("main").on("click", ".edit-entry", showEntryEditor);
 	$("main").on("click", ".flag-entry", flagEntry);
 	$("main").on("click", ".flag-volley", flagVolley);
@@ -432,7 +434,8 @@ $(function(){
 	function showEntryEditor() {
 		console.log("showEntryEditor");
 		hideEditor();
-		var text = $(this).parent().parent().parent().find(".entry-content").text();		
+		//var images = $(this).parent().parent().parent().find(".entry-content p").html();
+		var text = $(this).parent().parent().parent().find(".entry-content").text();
 		$("#popup-editor textarea").val(text);
 		$("#btn-delete").show();
 		$("#popup-editor").show();
