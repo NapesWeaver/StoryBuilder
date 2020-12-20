@@ -182,6 +182,8 @@ $(function(){
 		$div.append($images);		
 		
 		if (content != "" || uploads.length > 0) {
+			if (content != "") content = "<p>" + content + "</p>";
+			
 			$.ajax({
 				url: "/save-entry",
 				method: "post",
@@ -217,6 +219,8 @@ $(function(){
 		$div.append($images);
 		
 		if (content != "" || uploads.length > 0) {
+			if (content != "") content = "<p>" + content + "</p>";
+			
 			$.ajax({		
 				url: "/save-volley",
 				method: "post",
@@ -253,6 +257,8 @@ $(function(){
 		$div.append($images);
 		
 		if (content != "" || uploads.length > 0) {
+			if (content != "") content = "<p>" + content + "</p>";
+			
 			$.ajax({
 		
 				url: "/volley-append",
@@ -285,17 +291,6 @@ $(function(){
 		});
 	}
 	
-	/*function deleteVolley() {
-		$.ajax({
-			url: "/delete-volley",
-			method: "get",
-			type: "json",
-			data: { id: editId },
-			error: ajaxError,
-			success: reloadEntries
-		});
-	}*/
-	
 	function deleteVolley() {		
 		console.log("deleteVolley");
 		var entryId = $(this).parent().parent().find(".edit-entry").data("id");
@@ -307,8 +302,7 @@ $(function(){
 			data: {
 				id: editId,
 				entryId: entryId,
-				volleyId: volleyEntryId,
-				
+				volleyId: volleyEntryId				
 			},
 			error: ajaxError,
 			success: reloadEntries

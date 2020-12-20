@@ -1,10 +1,19 @@
 body {
+	margin: 0;
 	background-color: black;
 }
 
 #wrapper {	
     margin: auto;
     background-color: yellow;
+}
+
+main {
+	margin-top: 5.9em;
+}
+
+h1 {
+	font-size: 2em;
 }
 
 button,
@@ -29,24 +38,15 @@ h1,
 	font-weight: 600;
 }
 
-h1 {
-	font-size: 2em;
-}
-
-main {
-	margin-top: 5.9em;
-}
-
-header,
-#wrapper {
-	/* width: 360px; */
-}
-
 nav,
 h1,
 #popup-editor,
 .popup-editor {
 	padding: .45em;
+}
+
+p {
+	margin: 0;
 }
 
 .user-name,
@@ -151,12 +151,12 @@ header,
 
 @media only screen and (min-width: 640px) {
 	
-	h1 {
-		font-size: 2.5em;
-	}
-
 	main {
 		margin-top: 6.96em;
+	}
+	
+	h1 {
+		font-size: 2.5em;
 	}
 
 	.entry-content {
@@ -164,12 +164,16 @@ header,
  	}
  	
  	p a img {
- 		padding: .6em;
+ 		width: 45ch;
  		margin: 0;
  	}
 }
 
 @media only screen and (min-width: 800px) {
+	
+	p {
+		margin: 0 .6em;
+	}
 	
 	p a img {
 		width: 51ch;
@@ -203,4 +207,3 @@ header,
 		width: 60ch;
 	}
 }
-
