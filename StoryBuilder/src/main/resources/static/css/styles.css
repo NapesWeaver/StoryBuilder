@@ -73,6 +73,7 @@ h1,
 }
 
 body,
+header,
 #btn-save,
 #btn-cancel,
 #btn-delete {
@@ -187,6 +188,7 @@ header,
 }
 
 .entry,
+.is-entry,
 .volley {
 	box-shadow: 3px 3px 6px #000000;	
 }

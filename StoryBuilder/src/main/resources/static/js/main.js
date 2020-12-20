@@ -440,6 +440,7 @@ $(function(){
 		$("#btn-delete").show();
 		$("#popup-editor").show();
 		editId = $(this).data("id");
+		$("#popup-editor textarea").focus();
 	}
 	
 	function showAppendEntryEditor() {
@@ -476,6 +477,7 @@ $(function(){
 		$(this).parent().parent().after($popup);
 		$popup.prepend($dz);
 		$popup.show();
+		$(this).parent().parent().parent().find(".popup-editor textarea").focus();
 	}
 	
 	function showVolleyEditor() {
@@ -498,6 +500,7 @@ $(function(){
 		var text = $(this).parent().parent().find(".volley-content").text();
 		$(".popup-editor textarea").val(text);		
 		editId = $(this).data("id");
+		$(this).parent().parent().parent().find(".popup-editor textarea").focus();
 	}
 	
 	function hideEditor() {		
