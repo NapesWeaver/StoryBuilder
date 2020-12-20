@@ -12,7 +12,7 @@ $(function(){
 	var uploads = [];
 	
 	var offset = 0;
-	var limit = 11;
+	var limit = 7;
 	var ajaxDone = true;
 	var morePages = true;
 	
