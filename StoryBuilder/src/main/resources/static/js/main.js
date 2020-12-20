@@ -19,6 +19,7 @@ $(function(){
 	initUpload();
 	
 	$(window).scroll(scrolled);
+	$(".fa-sign-out-alt").click(logOut);
 	$("#btn-new").click(showNewEditor);
 	$("#btn-search").click(search);
 	$("#search").bind("search", search);
@@ -72,6 +73,11 @@ $(function(){
 				getEntries();
 			}			
 		}
+	}
+	
+	function logOut() {
+		console.log("logOut");
+		window.location.replace('/logout');
 	}
 	
 	function search() {	

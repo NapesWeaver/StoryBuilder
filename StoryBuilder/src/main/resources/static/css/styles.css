@@ -1,4 +1,5 @@
 body {
+	min-width: 280px;
 	margin: 0;
 	background-color: black;
 }
@@ -9,7 +10,7 @@ body {
 }
 
 main {
-	margin-top: 5.9em;
+	margin-top: 5.8em;
 }
 
 h1 {
@@ -38,7 +39,14 @@ textarea,
 	background-color: cyan;
 }
 
+.user {
+	display: flex;
+	flex-direction: column;
+	margin-right: 1em; 
+}
+
 button,
+.fa-sign-out-alt,
 .fa-search,
 .fa-edit,
 .fa-flag,
@@ -53,6 +61,7 @@ h1,
 #btn-save,
 #btn-cancel,
 #btn-delete,
+#upload,
 .entry-user-name,
 .volley-user-name,
 .entry-date,
@@ -78,6 +87,10 @@ h1,
 	margin: .45em;
 }
 
+.fa-sign-out-alt {
+	margin-top: .1em;
+}
+
 .entry-content,
 .volley-content {
 	margin: .3em;
@@ -100,8 +113,10 @@ nav {
 	background-color: green;
 }
 
+#upload,
 .entry-user-name,
 .volley-user-name,
+.volley-count,
 .entry-date,
 .volley-date,
 .entry p:last-child,
@@ -188,8 +203,11 @@ header,
 
 @media only screen and (min-width: 375px) {
 
+	.fa-sign-out-alt,
 	.entry-user-name,
 	.volley-user-name,
+	.toggle-book,
+	.volley-count,
 	.entry p:last-child,
  	.volley p:last-child {
  		font-size: 1.2em;
@@ -203,7 +221,7 @@ header,
 @media only screen and (min-width: 640px) {
 	
 	main {
-		margin-top: 6.96em;
+		margin-top: 7.3em;
 	}
 	
 	h1 {
@@ -214,18 +232,32 @@ header,
  	display: flex;
  	}
  	
+ 	.user {
+ 		margin-top: .3em;
+ 	}
+ 	
  	button,
-	input,
-	textarea,
- 	.far,
- 	.fas,
+ 	input,
+ 	textarea,
+ 	#upload,
+ 	.user span,
+ 	.fa-sign-out-alt,
+ 	.toggle-book,
+ 	.volley-count {
+ 		font-size: 1.3em;
+ 	}
+ 		
+ 	.fa-search,
+	.fa-edit,
+	.fa-flag,
+	.fa-pencil-alt,
  	.entry-user-name,
 	.volley-user-name,
  	.entry p:last-child,
  	.volley p:last-child {
  		margin: 0 .3em;
  		font-size: 1.3em;
- 	}
+ 	} 	
  	
  	p a img {
  		width: 45ch;
@@ -234,12 +266,31 @@ header,
 }
 
 @media only screen and (min-width: 800px) {
+
+	.entry,
+	.volley {
+		width: 96%;
+		margin-left: auto;
+		margin-right: auto;
+	}
 	
-	button,
-	input,
-	textarea,
-	.far,
-	.fas,
+	main {
+		margin-top: 7.5em;
+	}
+	 	
+ 	button,
+ 	input,
+ 	textarea,
+ 	#upload,
+ 	.toggle-book,
+ 	.volley-count {
+ 		font-size: 1.5em;
+ 	}
+
+	.fa-search,
+	.fa-edit,
+	.fa-flag,
+	.fa-pencil-alt,
 	.entry-user-name,
 	.volley-user-name,
 	.entry p:last-child,
@@ -255,16 +306,29 @@ header,
 
 @media only screen and (min-width: 1024px) {
 	
-	button,
-	input,
-	textarea,
-	.far,
-	.fas,
+	.entry,
+	.volley {
+		width: 93%;
+	}
+	 	
+ 	button,
+ 	input,
+ 	textarea,
+ 	#upload,
+ 	.toggle-book,
+ 	.volley-count {
+ 		font-size: 1.6em;
+ 	}
+ 	
+	.fa-search,
+	.fa-edit,
+	.fa-flag,
+	.fa-pencil-alt,
 	.entry-user-name,
 	.volley-user-name,
 	.entry p:last-child,
 	.volley p:last-child {
-		margin: 0 .6em;
+		margin: 0 .7em;
 		font-size: 1.6em;
 	}
 	
@@ -275,16 +339,41 @@ header,
 
 @media only screen and (min-width: 1080px) {
 	
-	button,
-	input,
-	textarea,
-	.far,
-	.fas,
+	.entry,
+	.volley {
+		width: 90%;
+	}
+	
+	main {
+		margin-top: 7.9em;
+	}
+	
+	.user {
+ 		margin-right: 1.8em;
+ 	}
+ 	
+ 	button,
+ 	input,
+ 	textarea,
+ 	#upload,
+ 	.toggle-book,
+ 	.volley-count {
+ 		font-size: 1.8em;
+ 	}
+ 	
+ 	button {
+ 		margin: 0 .1em;
+ 	}
+ 	
+	.fa-search,
+	.fa-edit,
+	.fa-flag,
+	.fa-pencil-alt,
 	.entry-user-name,
 	.volley-user-name,
 	.entry p:last-child,
 	.volley p:last-child {
-		margin: 0 .6em;
+		margin: 0 .8em;
 		font-size: 1.8em;
 	}
 	
@@ -295,24 +384,37 @@ header,
 
 @media only screen and (min-width: 1366px) {
 	
+	.entry,
+	.volley {
+		width: 87%;
+	}
+	
 	h1 {
 		font-size: 3.3em;
 	}
 	
 	main {
-		margin-top: 8.4em;
+		margin-top: 9.57em;
 	}
 	
 	button,
-	input,
-	textarea,
-	.far,
-	.fas,
+ 	input,
+ 	textarea,
+ 	#upload,
+ 	.toggle-book,
+ 	.volley-count {
+ 		font-size: 2em;
+ 	}
+ 	
+	.fa-search,
+	.fa-edit,
+	.fa-flag,
+	.fa-pencil-alt,
 	.entry-user-name,
 	.volley-user-name,
 	.entry p:last-child,
 	.volley p:last-child {
-		margin: 0 .6em;
+		margin: 0 1em;
 		font-size: 2em;
 	}
 
