@@ -16,6 +16,28 @@ h1 {
 	font-size: 2em;
 }
 
+#upload {
+	/* width: 100px; */
+	height: 100px;
+	min-height: 0px !important;
+}
+
+textarea {
+	height: 9em;
+}
+
+button,
+input,
+textarea,
+#upload {
+	border: none;
+	outline: none;
+}
+
+#upload {
+	background-color: cyan;
+}
+
 button,
 .fa-search,
 .fa-edit,
@@ -43,10 +65,6 @@ h1,
 #popup-editor,
 .popup-editor {
 	padding: .45em;
-}
-
-p {
-	margin: 0;
 }
 
 .user-name,
@@ -82,15 +100,27 @@ nav {
 	background-color: green;
 }
 
+.entry-user-name,
+.volley-user-name,
+.entry-date,
+.volley-date,
+.entry p:last-child,
+.volley p:last-child {
+	margin: 0;
+	line-height: 1.2em;
+	font-size: 1.1em;
+}
+
 p a:nth-child(2) {
   display: none;
 }
 
 p a img {
 	display: block;	
-	width: 42ch;
+	width: 31ch;
 	margin-right: auto;
 	margin-left: auto;
+	margin-bottom: .6em;
 }
 
 header,
@@ -149,6 +179,27 @@ header,
 	float: right;
 }
 
+@media only screen and (min-width: 320px) {
+	
+	p a img {
+		width: 36ch;
+	}
+}
+
+@media only screen and (min-width: 375px) {
+
+	.entry-user-name,
+	.volley-user-name,
+	.entry p:last-child,
+ 	.volley p:last-child {
+ 		font-size: 1.2em;
+ 	}
+
+	 p a img {
+ 		width: 43ch;
+ 	}	
+}
+
 @media only screen and (min-width: 640px) {
 	
 	main {
@@ -163,6 +214,19 @@ header,
  	display: flex;
  	}
  	
+ 	button,
+	input,
+	textarea,
+ 	.far,
+ 	.fas,
+ 	.entry-user-name,
+	.volley-user-name,
+ 	.entry p:last-child,
+ 	.volley p:last-child {
+ 		margin: 0 .3em;
+ 		font-size: 1.3em;
+ 	}
+ 	
  	p a img {
  		width: 45ch;
  		margin: 0;
@@ -171,8 +235,17 @@ header,
 
 @media only screen and (min-width: 800px) {
 	
-	p {
+	button,
+	input,
+	textarea,
+	.far,
+	.fas,
+	.entry-user-name,
+	.volley-user-name,
+	.entry p:last-child,
+	.volley p:last-child {
 		margin: 0 .6em;
+		font-size: 1.5em;
 	}
 	
 	p a img {
@@ -182,12 +255,39 @@ header,
 
 @media only screen and (min-width: 1024px) {
 	
+	button,
+	input,
+	textarea,
+	.far,
+	.fas,
+	.entry-user-name,
+	.volley-user-name,
+	.entry p:last-child,
+	.volley p:last-child {
+		margin: 0 .6em;
+		font-size: 1.6em;
+	}
+	
 	p a img {
 		width: 54ch;
 	}
 }
 
 @media only screen and (min-width: 1080px) {
+	
+	button,
+	input,
+	textarea,
+	.far,
+	.fas,
+	.entry-user-name,
+	.volley-user-name,
+	.entry p:last-child,
+	.volley p:last-child {
+		margin: 0 .6em;
+		font-size: 1.8em;
+	}
+	
 	p a img {
 		width: 57ch;
 	}
@@ -201,6 +301,19 @@ header,
 	
 	main {
 		margin-top: 8.4em;
+	}
+	
+	button,
+	input,
+	textarea,
+	.far,
+	.fas,
+	.entry-user-name,
+	.volley-user-name,
+	.entry p:last-child,
+	.volley p:last-child {
+		margin: 0 .6em;
+		font-size: 2em;
 	}
 
 	p a img {
