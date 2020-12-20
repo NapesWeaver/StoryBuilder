@@ -17,6 +17,31 @@ button,
 	cursor: pointer;
 }
 
+h1,
+#btn-new,
+#btn-save,
+#btn-cancel,
+#btn-delete,
+.entry-user-name,
+.volley-user-name,
+.entry-date,
+.volley-date {
+	font-weight: 600;
+}
+
+h1 {
+	font-size: 2em;
+}
+
+main {
+	margin-top: 5.9em;
+}
+
+header,
+#wrapper {
+	/* width: 360px; */
+}
+
 nav,
 h1,
 #popup-editor,
@@ -35,20 +60,18 @@ h1,
 	margin: .45em;
 }
 
+.entry-content,
+.volley-content {
+	margin: .3em;
+	background-color: white;
+}
+
 header {
 	width: 100%;
 	position: fixed;
  	top: 0;
-	left: 0;
-	left: 50%;
-	margin-left: -180px;
 	background-color: blue;	
 	z-index: 1;
-}
-
-header,
-#wrapper {
-	width: 360px;
 }
 
 h1 {
@@ -56,25 +79,18 @@ h1 {
 }
 
 nav {	
-	/* background-color: green; */
-	background-color: blue;
-}
-
-main {
-	margin-top: 4.15em;
+	background-color: green;
 }
 
 p a:nth-child(2) {
   display: none;
 }
 
-img {
-	width: 41ch;
-}
-
-.is-entry img,
-.volley img {
-	width: 38ch;
+p a img {
+	display: block;	
+	width: 42ch;
+	margin-right: auto;
+	margin-left: auto;
 }
 
 header,
@@ -131,5 +147,60 @@ header,
 
 .float-right {
 	float: right;
+}
+
+@media only screen and (min-width: 640px) {
+	
+	h1 {
+		font-size: 2.5em;
+	}
+
+	main {
+		margin-top: 6.96em;
+	}
+
+	.entry-content {
+ 	display: flex;
+ 	}
+ 	
+ 	p a img {
+ 		padding: .6em;
+ 		margin: 0;
+ 	}
+}
+
+@media only screen and (min-width: 800px) {
+	
+	p a img {
+		width: 51ch;
+	}
+}
+
+@media only screen and (min-width: 1024px) {
+	
+	p a img {
+		width: 54ch;
+	}
+}
+
+@media only screen and (min-width: 1080px) {
+	p a img {
+		width: 57ch;
+	}
+}
+
+@media only screen and (min-width: 1366px) {
+	
+	h1 {
+		font-size: 3.3em;
+	}
+	
+	main {
+		margin-top: 8.4em;
+	}
+
+	p a img {
+		width: 60ch;
+	}
 }
 

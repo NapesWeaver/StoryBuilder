@@ -210,16 +210,17 @@ public class EntryController {
 	}
 	
 	@RequestMapping("/delete-entry")
-	public Entry deleteEntry(@RequestParam int id) {		
+	public void deleteEntry(@RequestParam int id) {		
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String name = auth.getName();		
 		User user = UserRepo.findFirstByName(name);
 		Entry entry = EntryRepo.findById(id).get();
 
 		if (user.getName().equals(entry.getUser().getName())) {
-			EntryRepo.delete(entry);
+			//EntryRepo.delete(entry);
+			EntryRepo.deleteEntryById(id);
 		}
-		return entry;
+		//return entry;
 	}
 	
 	/*@RequestMapping("/delete-volley")

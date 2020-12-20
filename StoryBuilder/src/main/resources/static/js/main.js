@@ -12,8 +12,7 @@ $(function(){
 	var uploads = [];
 	
 	var offset = 0;
-	//var limit = 11;
-	var limit = 6;
+	var limit = 11;
 	var ajaxDone = true;
 	var morePages = true;
 	
@@ -559,13 +558,13 @@ $(function(){
 				$volley.find(".volley-user-name").append(data[i].user.name);
 				$volley.find(".volley-editable").append("<i class='fas fa-edit edit-volley' title='Edit volley'></i><i class='far fa-flag flag-volley' title='Flag as inappropriate'></i><span class='volley-flag-count' title='Flag count'></span>");
 				if (!data[i].editable || data[i].isEntry) $volley.find(".edit-volley").hide();
-				$volley.find(".volley-content").append(data[i].content);
 				$volley.find(".edit-volley").data("id", data[i].id);// Wow !!!
 				if (volleyFlags.hasOwnProperty(data[i].id)) {
 					$volley.find(".flag-volley").removeClass("far");
 					$volley.find(".flag-volley").addClass("fas");
 				}
 				if (data[i].flagCount > 0) $volley.find(".volley-flag-count").append(data[i].flagCount);
+				$volley.find(".volley-content").append(data[i].content);
 				if (!data[i].isEntry) $volley.find(".volley-appendable").append("<i class='fas fa-pencil-alt' title='Append to volley'>");
 				$volley.find(".volley-date").append(data[i].date.slice(0,10));
 				$volley.find(".volley-date").prop("title", data[i].date.slice(11, 19));
