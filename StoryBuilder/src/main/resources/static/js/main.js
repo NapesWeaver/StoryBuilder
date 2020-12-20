@@ -428,6 +428,7 @@ $(function(){
 		hideEditor();		
 		$("#btn-delete").hide();
 		$("#popup-editor").show();
+		$("#popup-editor textarea").focus();
 	}
 	
 	function showEntryEditor() {
@@ -456,6 +457,7 @@ $(function(){
 		$(this).parent().parent().after($popup);
 		$popup.prepend($dz);
 		$popup.show();
+		$(this).parent().parent().parent().find(".popup-editor textarea").focus();
 	}
 		
 	function showAppendVolleyEditor() {
