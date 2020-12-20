@@ -317,6 +317,8 @@ $(function(){
 	
 	function flagEntry() {
 		var flagged = false;
+		offset = 0;
+		morePages = true;		
 		editId = $(this).parent().find(".edit-entry").data("id");
 		
 		if (entryFlags.hasOwnProperty(editId)) {
@@ -343,6 +345,8 @@ $(function(){
 	
 	function flagVolley() {		
 		var flagged = false;
+		offset = 0;
+		morePages = true;		
 		editId = $(this).parent().find(".edit-volley").data("id");
 		
 		if (volleyFlags.hasOwnProperty(editId)) {
