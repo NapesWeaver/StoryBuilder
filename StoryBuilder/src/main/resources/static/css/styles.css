@@ -39,12 +39,6 @@ textarea,
 	background-color: cyan;
 }
 
-.user {
-	display: flex;
-	flex-direction: column;
-	margin-right: 1em; 
-}
-
 button,
 .fa-sign-out-alt,
 .fa-search,
@@ -88,7 +82,7 @@ h1,
 }
 
 .fa-sign-out-alt {
-	margin-top: .1em;
+	margin: .3em .3em 0 0;
 }
 
 .entry-content,
@@ -231,16 +225,11 @@ header,
 	.entry-content {
  	display: flex;
  	}
- 	
- 	.user {
- 		margin-top: .3em;
- 	}
- 	
+ 	 	
  	button,
  	input,
  	textarea,
  	#upload,
- 	.user span,
  	.fa-sign-out-alt,
  	.toggle-book,
  	.volley-count {
@@ -299,6 +288,10 @@ header,
 		font-size: 1.5em;
 	}
 	
+	.fa-sign-out-alt {
+		margin: .6em .6em 0 0;
+	}
+	
 	p a img {
 		width: 51ch;
 	}
@@ -332,6 +325,10 @@ header,
 		font-size: 1.6em;
 	}
 	
+	.fa-sign-out-alt {
+		margin: .9em .9em 0 0;
+	}
+	
 	p a img {
 		width: 54ch;
 	}
@@ -347,11 +344,7 @@ header,
 	main {
 		margin-top: 7.9em;
 	}
-	
-	.user {
- 		margin-right: 1.8em;
- 	}
- 	
+	 	
  	button,
  	input,
  	textarea,
@@ -375,6 +368,10 @@ header,
 	.volley p:last-child {
 		margin: 0 .8em;
 		font-size: 1.8em;
+	}
+	
+	.fa-sign-out-alt {
+		margin-right: 1.2em;
 	}
 	
 	p a img {
@@ -416,6 +413,10 @@ header,
 	.volley p:last-child {
 		margin: 0 1em;
 		font-size: 2em;
+	}
+	
+	.fa-sign-out-alt {
+		margin-right: 1.5em;
 	}
 
 	p a img {
