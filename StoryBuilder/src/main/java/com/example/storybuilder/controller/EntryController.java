@@ -54,22 +54,13 @@ public class EntryController {
 	public List<Entry> getEntries(@RequestParam int limit, @RequestParam int offset) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String name = auth.getName();
-		//List<Entry> entries = (List<Entry>) EntryRepo.findAll();
 		Pageable page = PageRequest.of(offset / limit, limit);
 		List<Entry> entries = (List<Entry>) EntryRepo.findAllByOrderByDateDesc(page);
-		//List<Integer> volleyEntryIds = VolleyRepo.getVolleyEntryIds();
 		
 		for (Entry entry: entries) {			
-			//int volleyCount = 0;			
 			if (name.equals(entry.getUser().getName())) {
 				entry.setEditable(true);
 			}
-			/*for (int volleyEntryId: volleyEntryIds) {
-				if (volleyEntryId == entry.getId()) {					
-					volleyCount += 1;
-				}
-				entry.setVolleyCount(volleyCount);
-			}*/
 		}		
 		return entries;
 	}
@@ -79,7 +70,6 @@ public class EntryController {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String name = auth.getName();		
 		Entry entry = EntryRepo.findById(entryId).get();		
-		//List<Volley> vollies = (List<Volley>) VolleyRepo.findByEntryId(EntryId);
 		List<Volley> vollies = (List<Volley>) VolleyRepo.findAllByEntryOrderByDateAsc(entry);
 		
 		for (Volley volley: vollies) {			
@@ -96,7 +86,7 @@ public class EntryController {
 		String name = auth.getName();
 		User user = UserRepo.findFirstByName(name);
 		
-		if (id > 0) {// Existing entry
+		if (id > 0) {// Existing Entry
 			Entry entry = EntryRepo.findById(id).get();
 			if(user.getName().equals(entry.getUser().getName())) {
 				entry.setContent(content);
@@ -105,7 +95,7 @@ public class EntryController {
 				entry = EntryRepo.save(entry);
 				return entry;
 			}
-		} else {// New entry
+		} else {// New Entry
 			Entry entry = new Entry();
 			entry.setUser(user);
 			entry.setContent(content);
@@ -127,7 +117,7 @@ public class EntryController {
 		String name = auth.getName();
 		User user = UserRepo.findFirstByName(name);
 		
-		if (id > 0) {// Existing volley
+		if (id > 0) {// Existing Volley
 			Volley volley = VolleyRepo.findById(id).get();
 			if(user.getName().equals(volley.getUser().getName())) {
 				volley.setContent(content);
@@ -139,7 +129,7 @@ public class EntryController {
 				volley = VolleyRepo.save(volley);
 				return volley;
 			}
-		} else {// New volley
+		} else {// New Volley
 			Entry entry = EntryRepo.findById(entryId).get();
 			Volley volley = new Volley();
 			volley.setUser(user);
@@ -217,24 +207,9 @@ public class EntryController {
 		Entry entry = EntryRepo.findById(id).get();
 
 		if (user.getName().equals(entry.getUser().getName())) {
-			//EntryRepo.delete(entry);
 			EntryRepo.deleteEntryById(id);
 		}
-		//return entry;
 	}
-	
-	/*@RequestMapping("/delete-volley")
-	public Volley deleteVolley(@RequestParam int id) {
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		String name = auth.getName();
-		User user = UserRepo.findFirstByName(name);
-		Volley volley = VolleyRepo.findById(id).get();		
-		
-		if (user.getName().equals(volley.getUser().getName())) {			
-			VolleyRepo.delete(volley);
-		}		
-		return volley;
-	}*/
 	
 	@RequestMapping("/delete-volley")
 	public Volley deleteVolleyAsEntry(@RequestParam int id, @RequestParam int entryId, @RequestParam int volleyId) {

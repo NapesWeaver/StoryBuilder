@@ -11,7 +11,6 @@ import com.example.storybuilder.pojo.Volley;
 
 public interface VolleyRepository extends PagingAndSortingRepository<Volley, Integer>{
 	public List<Volley> findAll();
-	//public List<Volley> findByEntryId(int id);
 	public Optional<Volley> findById(Integer id);
 	public List<Volley> findAllByEntryOrderByDateAsc(Entry entry);
 	@Query(value = "SELECT volley_entry_id FROM vollies WHERE is_hidden = false", nativeQuery = true)

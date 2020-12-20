@@ -33,7 +33,6 @@ public class Entry {
 	@Transient
 	private boolean editable;
 	//@Transient
-	//private int volleyCount;	
 	@Column(name="volley_count", table="entry_vollies", insertable=false, updatable=false)
 	private Integer volleyCount;
 	
@@ -73,14 +72,7 @@ public class Entry {
 	public void setEditable(boolean editable) {
 		this.editable = editable;
 	}
-	/*public int getVolleyCount() {
-		return volleyCount;
-	}
-	public void setVolleyCount(int volleyCount) {
-		this.volleyCount = volleyCount;
-	}*/
 	public Integer getVolleyCount() {
 		return volleyCount;
 	}
 }
-

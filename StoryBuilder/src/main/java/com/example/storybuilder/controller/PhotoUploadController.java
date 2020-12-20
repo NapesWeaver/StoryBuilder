@@ -79,8 +79,7 @@ public class PhotoUploadController {
 			}
 			output.write(buffer, 0, len);
 		}
-	}
-	
+	}	
 	
 	private void proccessPhoto(String dir, String file, File f) throws Exception {
 		scaleImage(f, new File(dir, file), 1080, "jpg");
@@ -116,4 +115,3 @@ class UploadedFile {
 		this.thumbnail = thumbnail;
 	}	
 }
-

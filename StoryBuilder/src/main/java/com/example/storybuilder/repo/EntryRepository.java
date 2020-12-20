@@ -16,8 +16,7 @@ public interface EntryRepository extends PagingAndSortingRepository<Entry, Integ
 	public List<Entry> findAll();
 	public Optional<Entry> findById(Integer id);
 	public List<Entry> findAllByContentContainingOrderByDateDesc(String content, Pageable Page);
-	public List<Entry> findAllByOrderByDateDesc(Pageable page);
-	
+	public List<Entry> findAllByOrderByDateDesc(Pageable page);	
 	@Transactional
 	@Modifying
 	@Query(value = "delete from " + "entries " + "where entries.entry_id = :id", nativeQuery = true)
