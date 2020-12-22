@@ -141,7 +141,6 @@ p a img {
 	width: 31ch;
 	margin-right: auto;
 	margin-left: auto;
-	margin-bottom: .6em;
 }
 
 header,
@@ -224,10 +223,6 @@ header,
 	h1 {
 		font-size: 2.5em;
 	}
-
-	.entry-content {
- 		display: flex;
- 	}
  	 	
  	button,
  	input,
@@ -260,8 +255,15 @@ header,
 	}
  	
  	p a img { 		
+ 		float: right;
  		width: 43ch;
- 		margin: 0;
+ 		margin-left: .6em;
+ 		margin-bottom: .6em;
+ 	}
+ 	
+ 	.entry-appendable,
+ 	.volley-appendable {
+ 		clear: right;
  	}
 }
 
@@ -310,6 +312,10 @@ header,
 	.fa-sign-out-alt {
 		margin: .6em .6em 0 0;
 	}
+	
+	p a img { 		
+ 		margin-left: .9em;
+ 	}
 }
 
 @media only screen and (min-width: 1024px) {
@@ -399,4 +405,8 @@ header,
 	.fa-sign-out-alt {
 		margin-right: 1.2em;
 	}
+	
+	p a img { 		
+ 		margin-left: 1.8em;
+ 	}
 }
