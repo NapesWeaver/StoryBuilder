@@ -10,6 +10,17 @@ body {
     margin: auto;
 }
 
+header {
+	width: 100%;
+	position: fixed;
+ 	top: 0;
+	z-index: 1;
+}
+
+h1 {
+	font-size: 2em;
+}
+
 nav {	
 	margin-bottom: 1em;
 }
@@ -18,15 +29,8 @@ main {
 	margin-top: 109px;
 }
 
-h1 {
-	font-size: 2em;
-}
-
-header {
-	width: 100%;
-	position: fixed;
- 	top: 0;
-	z-index: 1;
+.fa-sign-out-alt {
+	margin: 15px .6em 0 0;
 }
 
 #upload {
@@ -108,10 +112,6 @@ h1,
 .fa-book,
 .fa-book-open {
 	margin: .45em;
-}
-
-.fa-sign-out-alt {
-	margin: .3em .3em 0 0;
 }
 
 .entry-content,
@@ -282,7 +282,7 @@ header,
 		margin-top: 77px;
 	}
 	
-		.fa-sign-out-alt {
+	.fa-sign-out-alt {
 		margin-top: 27px;
 	}
 	
@@ -332,11 +332,7 @@ header,
 	.fa-sign-out-alt {
 		margin: 27px .9em 0 0;
 	}
-	
-	main {
-		margin-top: 77px;
-	}
-	
+		
 	#popup-editor,
 	.popup-editor,
 	.entry,
@@ -386,9 +382,7 @@ header,
 	}
 	
 	#popup-editor,
-	.popup-editor,
-	.entry,
-	.volley {
+	.popup-editor {
 		width: 90%;
 		padding: 2em;
 	}	
