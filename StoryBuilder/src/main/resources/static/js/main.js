@@ -57,7 +57,7 @@ $(function(){
 	}
 	
 	function uploadComplete(event, response) {
-		console.log(response);
+		console.log("uploadComplete:", response);
 		uploads.push(response);
 	}
 	
@@ -74,7 +74,6 @@ $(function(){
 	}
 	
 	function logOut() {
-		console.log("logOut");
 		window.location.replace('/logout');
 	}
 	
@@ -390,7 +389,7 @@ $(function(){
 			},
 			error: ajaxError,
 			success: function () {
-				console.log("save:",JSON.stringify(entryFlags));
+				console.log("saveUserEntryFlags:",JSON.stringify(entryFlags));
 			}
 		});
 	}
@@ -418,7 +417,7 @@ $(function(){
 			},
 			error: ajaxError,
 			success: function () {
-				console.log("save:",JSON.stringify(volleyFlags));
+				console.log("saveUserVolleyFlags:",JSON.stringify(volleyFlags));
 			}
 		});
 	}
