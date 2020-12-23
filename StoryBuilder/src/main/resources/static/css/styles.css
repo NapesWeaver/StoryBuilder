@@ -122,6 +122,8 @@ h1,
 #upload,
 .entry-user-name,
 .volley-user-name,
+.entry-flag-count,
+.volley-flag-count,
 .volley-count,
 .entry-date,
 .volley-date,
@@ -207,6 +209,8 @@ header,
 	.entry-user-name,
 	.volley-user-name,
 	.toggle-book,
+	.entry-flag-count,
+	.volley-flag-count,
 	.volley-count,
 	.entry p:last-child,
  	.volley p:last-child {
@@ -230,6 +234,8 @@ header,
  	#upload,
  	.fa-sign-out-alt,
  	.toggle-book,
+ 	.volley-flag-count,
+ 	.entry-flag-count,
  	.volley-count {
  		font-size: 1.3em;
  	}
@@ -302,6 +308,8 @@ header,
  	#upload,
  	.fa-sign-out-alt,
  	.toggle-book,
+ 	.entry-flag-count,
+ 	.volley-flag-count,
  	.volley-count {
  		font-size: 1.5em;
  	}
@@ -346,6 +354,8 @@ header,
  	#upload,
  	.fa-sign-out-alt,
  	.toggle-book,
+ 	.entry-flag-count,
+ 	.volley-flag-count,
  	.volley-count {
  		font-size: 1.6em;
  	}
@@ -393,6 +403,8 @@ header,
  	#upload,
  	.fa-sign-out-alt,
  	.toggle-book,
+ 	.entry-flag-count,
+ 	.volley-flag-count,
  	.volley-count {
  		font-size: 1.8em;
  	}

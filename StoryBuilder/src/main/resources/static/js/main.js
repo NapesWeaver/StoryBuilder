@@ -6,8 +6,6 @@ $(function(){
 	
 	var entryFlags = {};
 	var volleyFlags = {};
-	//var entryThumbs = {};
-	//var volleyThumbs = {};
 	
 	var uploads = [];
 	
