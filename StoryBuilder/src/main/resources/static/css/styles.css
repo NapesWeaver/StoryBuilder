@@ -125,8 +125,6 @@ h1,
 .entry-flag-count,
 .volley-flag-count,
 .volley-count,
-.entry-date,
-.volley-date,
 .entry p:last-child,
 .volley p:last-child {
 	margin: 0;
@@ -329,6 +327,11 @@ header,
 	p a img { 		
  		margin-left: .9em;
  	}
+ 	
+	.entry-date,
+	.volley-date {
+		font-size: 1.1em;
+	}	
 }
 
 @media only screen and (min-width: 1024px) {
@@ -347,7 +350,7 @@ header,
 	.volley {
 		width: 93%;
 	}
-		 	
+			 	
  	button,
  	input,
  	textarea,
@@ -370,7 +373,12 @@ header,
 	.volley p:last-child {
 		margin: 0 .7em;
 		font-size: 1.6em;
-	}	
+	}
+	
+	.entry-date,
+	.volley-date {
+		font-size: 1.2em;
+	}
 }
 
 @media only screen and (min-width: 1080px) {
@@ -428,4 +436,9 @@ header,
 	p a img { 		
  		margin-left: 1.8em;
  	}
+ 	
+ 	.entry-date,
+	.volley-date {
+		font-size: 1.4em;
+	}
 }
