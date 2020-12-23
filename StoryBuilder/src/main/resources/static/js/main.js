@@ -170,8 +170,7 @@ $(function(){
 	
 	function saveEntry() {
 		console.log("saveEntry");		
-		var content = $("#popup-editor textarea").val().trim();
-		
+		var content = $("#popup-editor textarea").val().trim();		
 		var $div = $("<div>");
 		var $images = $("<p></p>");
 		
@@ -198,7 +197,7 @@ $(function(){
 				},
 				error: ajaxError,
 				success: function() {
-					uploads = [];					
+					uploads = [];
 					reloadEntries();
 				}
 			});	
@@ -207,8 +206,7 @@ $(function(){
 	
 	function saveVolley() {
 		console.log("saveVolley");		
-		var content = $(".popup-editor textarea").val().trim();		
-		
+		var content = $(".popup-editor textarea").val().trim();			
 		var $div = $("<div>");
 		var $images = $("<p></p>");
 		
@@ -519,13 +517,20 @@ $(function(){
 		hideEditor();		
 		$(".entry").remove();
 		$(".toggle-book").attr("title", "Open story");
+		paginationReset();
 		getEntries();
 	}	
 	
 	function ajaxError() {
-		ajaxDone = true;
+		paginationReset();
 		alert("AJAX ERROR");
 		reloadEntries();
+	}
+	
+	function paginationReset() {
+		offset = 0;
+		ajaxDone = false;
+		morePages = true;
 	}
 	
 	function buildEntries(data) {
