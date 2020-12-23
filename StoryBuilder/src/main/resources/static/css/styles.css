@@ -15,7 +15,7 @@ nav {
 }
 
 main {
-	margin-top: 6.7em;
+	margin-top: 109px;
 }
 
 h1 {
@@ -217,7 +217,7 @@ header,
 @media only screen and (min-width: 640px) {
 	
 	main {
-		margin-top: 8.3em;
+		margin-top: 132px;
 	}
 	
 	h1 {
@@ -269,6 +269,23 @@ header,
 
 @media only screen and (min-width: 800px) {
 
+	h1 {
+		float: left;
+	}
+		
+	nav {
+		margin-top: 17px;
+		margin-right: 5em;
+	}
+	
+	main {
+		margin-top: 77px;
+	}
+	
+		.fa-sign-out-alt {
+		margin-top: 27px;
+	}
+	
 	#popup-editor,
 	.popup-editor,
 	.entry,
@@ -277,14 +294,6 @@ header,
 		margin-left: auto;
 		margin-right: auto;
 		padding: 1em;
-	}
-	
-	nav {
-		margin-bottom: 1.4em;
-	}
-	
-	main {
-		margin-top: 8.5em;
 	}
 	 	
  	button,
@@ -309,16 +318,24 @@ header,
 		font-size: 1.5em;
 	}
 	
-	.fa-sign-out-alt {
-		margin: .6em .6em 0 0;
-	}
-	
 	p a img { 		
  		margin-left: .9em;
  	}
 }
 
 @media only screen and (min-width: 1024px) {
+
+	nav {
+		margin-top: 16px;
+	}
+	
+	.fa-sign-out-alt {
+		margin: 27px .9em 0 0;
+	}
+	
+	main {
+		margin-top: 77px;
+	}
 	
 	#popup-editor,
 	.popup-editor,
@@ -347,14 +364,26 @@ header,
 	.volley p:last-child {
 		margin: 0 .7em;
 		font-size: 1.6em;
-	}
-	
-	.fa-sign-out-alt {
-		margin: .9em .9em 0 0;
 	}	
 }
 
 @media only screen and (min-width: 1080px) {
+	
+	h1 {
+		font-size: 3.3em;
+	}
+	
+	nav {
+		margin: 27px 11em 0 0;
+	}
+	
+	main {
+		margin-top: 100px;
+	}
+	
+	.fa-sign-out-alt {
+		margin-top: 38px
+	}
 	
 	#popup-editor,
 	.popup-editor,
@@ -362,19 +391,7 @@ header,
 	.volley {
 		width: 90%;
 		padding: 2em;
-	}
-	
-	h1 {
-		font-size: 3.3em;
-	}
-	
-	nav {
-		margin-bottom: 1.9em;
-	}
-	
-	main {
-		margin-top: 11.33em;
-	}
+	}	
 	 	
  	button,
  	input,
@@ -400,10 +417,6 @@ header,
 	.volley p:last-child {
 		margin: 0 .8em;
 		font-size: 1.8em;
-	}
-	
-	.fa-sign-out-alt {
-		margin-right: 1.2em;
 	}
 	
 	p a img { 		
