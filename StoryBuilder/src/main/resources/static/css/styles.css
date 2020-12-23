@@ -22,11 +22,11 @@ h1 {
 }
 
 nav {	
-	margin-bottom: 1em;
+	margin-bottom: 16px;
 }
 
 main {
-	margin-top: 109px;
+	margin-top: 108px;
 }
 
 .fa-sign-out-alt {
@@ -197,12 +197,26 @@ header,
 	color: #000000;
 }
 
+.entry-date,
+.volley-date {
+	font-size: .8em;
+}
+
 .float-right {
 	float: right;
 }
 
 @media only screen and (min-width: 375px) {
+	
+	nav {
+		margin-bottom: 17px;
 
+	}
+	
+	main {
+		margin-top: 109px
+	}
+	
 	.fa-sign-out-alt,
 	.entry-user-name,
 	.volley-user-name,
@@ -218,12 +232,17 @@ header,
 
 @media only screen and (min-width: 640px) {
 	
-	main {
-		margin-top: 132px;
-	}
 	
 	h1 {
 		font-size: 2.5em;
+	}
+	
+	nav {
+		margin-bottom: 20px;
+	}
+	
+	main {
+		margin-top: 137px;
 	}
  	 	
  	button,
@@ -269,21 +288,26 @@ header,
  	.volley-appendable {
  		clear: right;
  	}
+ 	
+ 	.entry-date,
+	.volley-date {
+		font-size: 1em;
+	}
 }
 
 @media only screen and (min-width: 800px) {
 
 	h1 {
-		float: left;
+		float: left;		
 	}
 		
 	nav {
-		margin-top: 17px;
-		margin-right: 5em;
+		margin: 17px 5em 0 0;
+		padding-bottom: 25px;
 	}
 	
 	main {
-		margin-top: 77px;
+		margin-top: 79px;
 	}
 	
 	.fa-sign-out-alt {
@@ -327,21 +351,25 @@ header,
 	p a img { 		
  		margin-left: .9em;
  	}
- 	
-	.entry-date,
-	.volley-date {
-		font-size: 1.1em;
-	}	
 }
 
 @media only screen and (min-width: 1024px) {
 
+	h1 {
+		margin: .3em 0 .3em 0;
+		padding-right: 0;
+	}
+	
 	nav {
-		margin-top: 16px;
+		margin: 28px 9em 0 0;
+	}
+	
+	main {
+		margin-top: 100px;
 	}
 	
 	.fa-sign-out-alt {
-		margin: 27px 1em 0 0;
+		margin: 37px 1em 0 0;
 	}
 		
 	#popup-editor,
@@ -381,18 +409,15 @@ header,
 	}
 }
 
-@media only screen and (min-width: 1080px) {
+@media only screen and (min-width: 1536px) {
 	
 	h1 {
 		font-size: 3.3em;
+		margin: 0;
 	}
 	
 	nav {
-		margin: 27px 10.2em 0 0;
-	}
-	
-	main {
-		margin-top: 100px;
+		margin: 27px 12em 0 0;
 	}
 	
 	.fa-sign-out-alt {
@@ -436,9 +461,4 @@ header,
 	p a img { 		
  		margin-left: 1.8em;
  	}
- 	
- 	.entry-date,
-	.volley-date {
-		font-size: 1.4em;
-	}
 }
